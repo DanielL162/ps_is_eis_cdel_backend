@@ -46,6 +46,8 @@ public class Usuario {
 	@OneToMany(mappedBy = "emisor")
 	private List<Formulario> formularios;
 
+	@OneToMany(mappedBy = "usuario")
+	private List<Documento> documentos;
 	
 	//gets y sets
 	public Integer getId() {
