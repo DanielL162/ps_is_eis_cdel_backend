@@ -30,10 +30,10 @@ public class Formulario {
 
 	
 	@ManyToOne()
-	@JoinColumn(name = "ntfc_id_emisor")
+	@JoinColumn(name = "form_id_emisor")
 	private Usuario emisor;
 	
-	@Column(name = "ntfc_id_destinatario")
+	@Column(name = "form_id_destinatario")
 	private Integer idDestinatario;
 
 	

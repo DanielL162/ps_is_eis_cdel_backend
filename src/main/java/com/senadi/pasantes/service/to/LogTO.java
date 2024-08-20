@@ -2,8 +2,6 @@ package com.senadi.pasantes.service.to;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-
 public class LogTO {
 	
 	private Integer id;
