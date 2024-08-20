@@ -28,9 +28,9 @@ public class Log {
 	@Column(name = "log_fecha_accion")
 	private LocalDateTime fechaAccion;
 	
-	//@ManyToOne
-	//@JoinColumn(name = "user_log_id")
-	//private Usuario;
+	@ManyToOne
+	@JoinColumn(name = "user_log_id")
+	private Usuario usuario ;
 
 
 	public Integer getId() {
@@ -55,6 +55,14 @@ public class Log {
 
 	public void setFechaAccion(LocalDateTime fechaAccion) {
 		this.fechaAccion = fechaAccion;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 

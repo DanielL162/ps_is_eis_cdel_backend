@@ -33,9 +33,8 @@ public class Formulario {
 	@JoinColumn(name = "ntfc_id_emisor")
 	private Usuario emisor;
 	
-	@ManyToOne()
-	@JoinColumn(name = "ntfc_id_destinatario")
-	private Usuario destinatario;
+	@Column(name = "ntfc_id_destinatario")
+	private Integer idDestinatario;
 
 	
 	//gets y sets
@@ -80,13 +79,15 @@ public class Formulario {
 		this.emisor = emisor;
 	}
 
-	public Usuario getDestinatario() {
-		return destinatario;
+	public Integer getIdDestinatario() {
+		return idDestinatario;
 	}
 
-	public void setDestinatario(Usuario destinatario) {
-		this.destinatario = destinatario;
+	public void setIdDestinatario(Integer idDestinatario) {
+		this.idDestinatario = idDestinatario;
 	}
+
+
 	
 	
 	
