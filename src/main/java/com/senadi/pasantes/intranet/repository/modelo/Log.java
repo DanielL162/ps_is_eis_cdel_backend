@@ -29,7 +29,7 @@ public class Log {
 	private LocalDateTime fechaAccion;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_log_id")
+	@JoinColumn(name = "log_user_id")
 	private Usuario usuario ;
 
 
