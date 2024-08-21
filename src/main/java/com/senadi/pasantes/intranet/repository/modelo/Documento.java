@@ -3,48 +3,52 @@ package com.senadi.pasantes.intranet.repository.modelo;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "documento")
 public class Documento {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_documento")
 	@SequenceGenerator(name = "seq_documento", sequenceName = "seq_documento", allocationSize = 1)
-	@Column(name = "doc_id")
+	@Column(name = "docu_id")
 	private String id;
 	
-	@Column(name = "doc_nombre")
+	@Column(name = "docu_nombre")
 	private String nombre;
 	
-	@Column(name = "doc_categoria")
+	@Column(name = "docu_categoria")
 	private String categoria;
 	
-	@Column(name="doc_fecha_creacion")
+	@Column(name="docu_fecha_creacion")
 	private LocalDateTime fechaCreacion;
 	
-	@Column(name="doc_fecha_actualización")
+	@Column(name="docu_fecha_actualización")
 	private LocalDateTime fechaActualizacion;
 	
-	@Column(name = "doc_documento")
+	@Column(name = "docu_documento")
 	private String documento;
 	
-	@Column(name = "doc_documento_url")
+	@Column(name = "docu_documento_url")
 	private String documentoURL;
 	
 	
-	@Column (name="doc_tipo")
+	@Column (name="docu_tipo")
 	private String tipo;
 	
     @Column(name="docu_estado")
     private String estado;
     
     @ManyToOne
-    @JoinColumn(name = "documento_id_usuario")
+    @JoinColumn(name = "docu_id_usuario")
     private Usuario usuario;
 
 	public String getId() {
@@ -131,8 +135,7 @@ public class Documento {
 	public String toString() {
 		return "Documento [id=" + id + ", nombre=" + nombre + ", categoria=" + categoria + ", fechaCreacion="
 				+ fechaCreacion + ", fechaActualizacion=" + fechaActualizacion + ", documento=" + documento
-				+ ", documentoURL=" + documentoURL + ", tipo=" + tipo + ", estado=" + estado + ", usuario=" + usuario
-				+ "]";
+				+ ", documentoURL=" + documentoURL + ", tipo=" + tipo + ", estado=" + estado +  "]";
 	}
 	
 
