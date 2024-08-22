@@ -16,28 +16,31 @@ import jakarta.persistence.Table;
 @Table(name = "notificacion")
 public class Notificacion {
 	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_notificacion")
 	@SequenceGenerator(name = "seq_notificacion", sequenceName = "seq_notificacion", allocationSize = 1)
 	@Column(name = "ntfc_id")
 	private Integer id;
+
 	@Column(name = "ntfc_fecha_inicio")
 	private LocalDateTime fechaInicio;
+
 	@Column(name = "ntfc_fecha_fin")
 	private LocalDateTime fechaFin;
+
 	@Column(name = "ntfc_url_imagen")
 	private String urlImagen;
+
 	@Column(name = "ntfc_importancia")
 	private String importancia;
+
 	@Column(name = "ntfc_estado")
 	private String estado;
 	
+	//Relaciones
 	@ManyToOne()
 	@JoinColumn(name = "ntfc_id_usuario")
 	private Usuario usuario;
-	
-	
 	
 	//Get y set
 	public Integer getId() {
@@ -82,9 +85,6 @@ public class Notificacion {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
-	
 	
 
 }

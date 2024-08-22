@@ -1,4 +1,4 @@
-package com.senadi.pasantes.service;
+package com.senadi.pasantes.intranet.service;
 
 import com.senadi.pasantes.intranet.repository.modelo.Log;
 

@@ -40,17 +40,18 @@ public class Documento {
 	@Column(name = "docu_documento_url")
 	private String documentoURL;
 	
-	
 	@Column (name="docu_tipo")
 	private String tipo;
 	
     @Column(name="docu_estado")
     private String estado;
     
+	//Relaciones
     @ManyToOne
     @JoinColumn(name = "docu_id_usuario")
     private Usuario usuario;
 
+	//Get y set
 	public String getId() {
 		return id;
 	}

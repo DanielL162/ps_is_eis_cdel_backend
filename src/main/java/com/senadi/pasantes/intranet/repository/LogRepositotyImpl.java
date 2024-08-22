@@ -14,33 +14,25 @@ public class LogRepositotyImpl implements ILogRepositoty {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-	
+
 	@Override
 	public Log buscar(Integer id) {
-		// TODO Auto-generated method stub
 		return entityManager.find(Log.class, id);
 	}
 
 	@Override
 	public void eliminar(Integer id) {
-		// TODO Auto-generated method stub
-	entityManager.remove(this.buscar(id));
+		entityManager.remove(this.buscar(id));
 	}
 
 	@Override
 	public void actualizar(Log log) {
-		// TODO Auto-generated method stub
 		entityManager.merge(log);
 	}
 
 	@Override
 	public void insertar(Log log) {
-		// TODO Auto-generated method stub
 		entityManager.persist(log);
 	}
-	
-	
-	
 
 }

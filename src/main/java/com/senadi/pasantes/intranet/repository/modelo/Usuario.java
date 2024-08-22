@@ -20,25 +20,34 @@ public class Usuario {
 	@SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario", allocationSize = 1)
 	@Column(name = "user_id")
 	private Integer id;
+
 	@Column(name = "user_cedula")
 	private String cedula;
+
 	@Column(name = "user_identificacion_senadi")
 	private String identificacionSenadi;
+
 	@Column(name = "user_nombres")
 	private String nombres;
+
 	@Column(name = "user_apellidos")
 	private String apellidos;
+
 	@Column(name = "user_password")
 	private String password;
+
 	@Column(name = "user_email")
 	private String email;
+
 	@Column(name = "user_rol")
 	private String rol;
+
 	@Column(name = "user_departamento")
 	private String departamento;
 	
+	//Relaciones
 	@OneToMany(mappedBy = "usuario")
-	private List<Notificacion> notificacions;
+	private List<Notificacion> notificaciones;
 	
 	@OneToMany(mappedBy = "usuario")
 	private List<Log> logs;
@@ -49,7 +58,7 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario")
 	private List<Documento> documentos;
 	
-	//gets y sets
+	//Get y set
 	public Integer getId() {
 		return id;
 	}
@@ -122,12 +131,12 @@ public class Usuario {
 		this.departamento = departamento;
 	}
 
-	public List<Notificacion> getNotificacions() {
-		return notificacions;
+	public List<Notificacion> getNotificaciones() {
+		return notificaciones;
 	}
 
-	public void setNotificacions(List<Notificacion> notificacions) {
-		this.notificacions = notificacions;
+	public void setNotificaciones(List<Notificacion> notificaciones) {
+		this.notificaciones = notificaciones;
 	}
 
 	public List<Log> getLogs() {

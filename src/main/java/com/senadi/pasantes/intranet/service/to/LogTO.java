@@ -1,19 +1,22 @@
-package com.senadi.pasantes.service.to;
+package com.senadi.pasantes.intranet.service.to;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class LogTO {
+public class LogTO implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	
 	private String accion;
 	
 	private LocalDateTime fechaAccion;
 	
-	
-	
-	//GET y SET
+	//Relaciones
+	private UsuarioTO usuarioTO ;
 
+	//Get y set
 	public Integer getId() {
 		return id;
 	}
@@ -41,6 +44,18 @@ public class LogTO {
 	@Override
 	public String toString() {
 		return "LogTo [id=" + id + ", accion=" + accion + ", fechaAccion=" + fechaAccion + "]";
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public UsuarioTO getUsuarioTO() {
+		return usuarioTO;
+	}
+
+	public void setUsuarioTO(UsuarioTO usuarioTO) {
+		this.usuarioTO = usuarioTO;
 	}
 	
 	

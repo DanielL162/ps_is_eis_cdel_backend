@@ -1,4 +1,4 @@
-package com.senadi.pasantes.service;
+package com.senadi.pasantes.intranet.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

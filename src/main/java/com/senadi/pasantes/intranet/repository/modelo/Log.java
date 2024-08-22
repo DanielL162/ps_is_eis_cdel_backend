@@ -12,8 +12,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-@Table(name = "log")
 @Entity
+@Table(name = "log")
 public class Log {
 	
 	@Id
@@ -28,11 +28,12 @@ public class Log {
 	@Column(name = "log_fecha_accion")
 	private LocalDateTime fechaAccion;
 	
+	//Relaciones
 	@ManyToOne
 	@JoinColumn(name = "log_user_id")
 	private Usuario usuario ;
 
-
+	//Get y set
 	public Integer getId() {
 		return id;
 	}
@@ -64,13 +65,5 @@ public class Log {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-
-	
-	
-	
-	
-	
-	
 	
 }

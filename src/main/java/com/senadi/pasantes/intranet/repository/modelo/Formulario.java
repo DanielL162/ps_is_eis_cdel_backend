@@ -15,30 +15,31 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "formulario")
 public class Formulario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_formulario")
 	@SequenceGenerator(name = "seq_formulario", sequenceName = "seq_formulario", allocationSize = 1)
 	@Column(name = "form_id")
 	private Integer id;
+
 	@Column(name = "form_fecha_emision")
 	private LocalDateTime fechaEmision;
+
 	@Column(name = "form_fecha_tratamiento")
 	private LocalDateTime fechaTratamiento;
+
 	@Column(name = "form_estado")
 	private String estado;
 
-	
+	//Relaciones
 	@ManyToOne()
 	@JoinColumn(name = "form_id_emisor")
 	private Usuario emisor;
-	
+
 	@Column(name = "form_id_destinatario")
 	private Integer idDestinatario;
 
-	
-	//gets y sets
-	
+	//Get y set
 	public Integer getId() {
 		return id;
 	}
@@ -87,8 +88,4 @@ public class Formulario {
 		this.idDestinatario = idDestinatario;
 	}
 
-
-	
-	
-	
 }

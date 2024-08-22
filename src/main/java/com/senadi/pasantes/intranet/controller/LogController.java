@@ -1,4 +1,4 @@
-package com.senadi.pasantes.controller;
+package com.senadi.pasantes.intranet.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
