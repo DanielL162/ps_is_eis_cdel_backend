@@ -1,54 +1,25 @@
-package com.senadi.pasantes.intranet.repository.modelo;
+package com.senadi.pasantes.intranet.service.to;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 
-@Entity
-@Table(name = "documento")
-public class Documento {
+public class DocumentoTO implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_documento")
-	@SequenceGenerator(name = "seq_documento", sequenceName = "seq_documento", allocationSize = 1)
-	@Column(name = "docu_id")
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
-
-	@Column(name = "docu_nombre")
 	private String nombre;
-
-	@Column(name = "docu_categoria")
 	private String categoria;
-
-	@Column(name = "docu_fecha_creacion")
 	private LocalDateTime fechaCreacion;
-
-	@Column(name = "docu_fecha_actualización")
 	private LocalDateTime fechaActualizacion;
-
-	@Column(name = "docu_documento")
 	private String documento;
-
-	@Column(name = "docu_documento_url")
 	private String documentoURL;
-
-	@Column(name = "docu_tipo")
 	private String tipo;
-
-	@Column(name = "docu_estado")
 	private String estado;
 
 	// Relaciones
-	@ManyToOne
-	@JoinColumn(name = "docu_id_usuario")
 	private Usuario usuario;
 
 	// Get y set

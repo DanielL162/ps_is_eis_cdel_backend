@@ -8,8 +8,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
-@Transactional
 @Repository
+@Transactional
 public class UsuarioRepositoryImpl implements IUsuarioRepository {
 
 	@PersistenceContext
@@ -17,11 +17,11 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 
 	@Override
 	public void insertar(Usuario usuario) {
-		this.entityManager.persist(usuario);
+		this.entityManager.merge(usuario);
 	}
 
 	@Override
-	public Usuario seleccionar(Integer id) {
+	public Usuario buscarPorId(Integer id) {
 		return this.entityManager.find(Usuario.class, id);
 	}
 
@@ -33,7 +33,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 
 	@Override
 	public void eliminar(Integer id) {
-		Usuario usuario = this.seleccionar(id);
+		Usuario usuario = this.buscarPorId(id);
 		this.entityManager.remove(usuario);
 	}
 

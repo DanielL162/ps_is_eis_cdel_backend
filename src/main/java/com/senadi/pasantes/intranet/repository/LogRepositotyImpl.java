@@ -10,29 +10,29 @@ import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public class LogRepositotyImpl implements ILogRepositoty {
+public class LogRepositotyImpl implements ILogRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
-	public Log buscar(Integer id) {
-		return entityManager.find(Log.class, id);
+	public void insertar(Log log) {
+		this.entityManager.merge(log);
 	}
 
 	@Override
-	public void eliminar(Integer id) {
-		entityManager.remove(this.buscar(id));
+	public Log buscarPorId(Integer id) {
+		return this.entityManager.find(Log.class, id);
 	}
 
 	@Override
 	public void actualizar(Log log) {
-		entityManager.merge(log);
+		this.entityManager.merge(log);
 	}
 
 	@Override
-	public void insertar(Log log) {
-		entityManager.persist(log);
+	public void eliminar(Integer id) {
+		this.entityManager.remove(this.buscarPorId(id));
 	}
 
 }

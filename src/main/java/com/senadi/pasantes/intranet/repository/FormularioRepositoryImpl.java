@@ -8,36 +8,32 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
-@Transactional
 @Repository
+@Transactional
 public class FormularioRepositoryImpl implements IFormularioRepository {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
 	public void insertar(Formulario formulario) {
-		this.entityManager.persist(formulario);
-
+		this.entityManager.merge(formulario);
 	}
 
 	@Override
-	public Formulario seleccionar(Integer id) {
-		
+	public Formulario buscarPorId(Integer id) {
 		return this.entityManager.find(Formulario.class, id);
 	}
 
 	@Override
 	public void actualizar(Formulario formulario) {
 		this.entityManager.merge(formulario);
-
 	}
 
 	@Override
 	public void eliminar(Integer id) {
-		Formulario formulario=this.seleccionar(id);
+		Formulario formulario = this.buscarPorId(id);
 		this.entityManager.remove(formulario);
-
 	}
 
 }

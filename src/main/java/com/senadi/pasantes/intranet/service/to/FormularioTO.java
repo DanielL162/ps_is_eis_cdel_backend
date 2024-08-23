@@ -1,47 +1,24 @@
-package com.senadi.pasantes.intranet.repository.modelo;
+package com.senadi.pasantes.intranet.service.to;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 
-@Entity
-@Table(name = "formulario")
-public class Formulario {
+public class FormularioTO implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_formulario")
-	@SequenceGenerator(name = "seq_formulario", sequenceName = "seq_formulario", allocationSize = 1)
-	@Column(name = "form_id")
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
-
-	@Column(name = "form_fecha_emision")
 	private LocalDateTime fechaEmision;
-
-	@Column(name = "form_fecha_tratamiento")
 	private LocalDateTime fechaTratamiento;
-
-	@Column(name = "form_estado")
 	private String estado;
-	
-	@Column(name = "form_id_destinatario")
 	private Integer idDestinatario;
 
-	//Relaciones
-	@ManyToOne()
-	@JoinColumn(name = "form_id_emisor")
+	// Relaciones
 	private Usuario emisor;
 
-
-
-	//Get y set
+	// Get y set
 	public Integer getId() {
 		return id;
 	}

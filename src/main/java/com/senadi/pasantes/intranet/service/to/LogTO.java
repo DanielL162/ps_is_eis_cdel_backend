@@ -3,20 +3,20 @@ package com.senadi.pasantes.intranet.service.to;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.senadi.pasantes.intranet.repository.modelo.Usuario;
+
 public class LogTO implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	
 	private String accion;
-	
 	private LocalDateTime fechaAccion;
-	
-	//Relaciones
-	private UsuarioTO usuarioTO ;
 
-	//Get y set
+	// Relaciones
+	private Usuario usuario;
+
+	// Get y set
 	public Integer getId() {
 		return id;
 	}
@@ -50,18 +50,12 @@ public class LogTO implements Serializable {
 		return serialVersionUID;
 	}
 
-	public UsuarioTO getUsuarioTO() {
-		return usuarioTO;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setUsuarioTO(UsuarioTO usuarioTO) {
-		this.usuarioTO = usuarioTO;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-	
-	
-	
-	
-	
-	
 
 }
