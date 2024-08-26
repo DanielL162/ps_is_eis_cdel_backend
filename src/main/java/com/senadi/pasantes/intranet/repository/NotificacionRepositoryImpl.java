@@ -17,7 +17,7 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 
 	@Override
 	public void insertar(Notificacion notificacion) {
-		this.entityManager.merge(notificacion);
+		this.entityManager.persist(notificacion);
 	}
 
 	@Override

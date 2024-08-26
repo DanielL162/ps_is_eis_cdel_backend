@@ -17,7 +17,7 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 
 	@Override
 	public void insertar(Documento documento) {
-		this.entityManager.merge(documento);
+		this.entityManager.persist(documento);
 	}
 
 	@Override

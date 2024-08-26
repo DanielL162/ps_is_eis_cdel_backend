@@ -17,7 +17,7 @@ public class FormularioRepositoryImpl implements IFormularioRepository {
 
 	@Override
 	public void insertar(Formulario formulario) {
-		this.entityManager.merge(formulario);
+		this.entityManager.persist(formulario);
 	}
 
 	@Override

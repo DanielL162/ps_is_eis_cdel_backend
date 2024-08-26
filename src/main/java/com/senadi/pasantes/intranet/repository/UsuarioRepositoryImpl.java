@@ -17,7 +17,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 
 	@Override
 	public void insertar(Usuario usuario) {
-		this.entityManager.merge(usuario);
+		this.entityManager.persist(usuario);
 	}
 
 	@Override

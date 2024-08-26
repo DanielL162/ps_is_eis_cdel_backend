@@ -17,7 +17,7 @@ public class LogRepositotyImpl implements ILogRepository {
 
 	@Override
 	public void insertar(Log log) {
-		this.entityManager.merge(log);
+		this.entityManager.persist(log);
 	}
 
 	@Override
