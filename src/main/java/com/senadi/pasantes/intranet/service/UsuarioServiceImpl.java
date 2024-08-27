@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
+import com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO;
+import com.senadi.pasantes.intranet.service.to.UsuarioLoginTO;
 import com.senadi.pasantes.intranet.service.to.UsuarioTO;
 
 @Service
@@ -44,4 +46,21 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		this.iUsuarioRepo.eliminar(id);
 	}
 
+	@Override
+	public Integer validarUsuario(UsuarioLoginTO usuarioLoginTO) {
+		UsuarioLoginDTO usuarioLoginDTO=this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioLoginTO.getCedula());
+		if (usuarioLoginTO.getPassword().equals(usuarioLoginDTO.getPassword())) {
+			System.out.println("La contraseña coincide");
+			if (usuarioLoginTO.getRol().equals(usuarioLoginDTO.getRol())) {
+				System.out.println("El rol es correcto");
+				return usuarioLoginDTO.getId();
+			}
+		}else  {
+			System.out.println("La contraseña no coincide");
+		}
+		
+		return -1;
+	}
+
+	
 }

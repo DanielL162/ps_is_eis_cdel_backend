@@ -26,7 +26,7 @@ public class Usuario {
 
 	@Column(name = "user_identificacion_senadi")
 	private String identificacionSenadi;
-
+	
 	@Column(name = "user_nombres")
 	private String nombres;
 

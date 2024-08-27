@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senadi.pasantes.intranet.service.IUsuarioService;
+import com.senadi.pasantes.intranet.service.to.UsuarioLoginTO;
 import com.senadi.pasantes.intranet.service.to.UsuarioTO;
 
 @CrossOrigin
@@ -54,4 +55,14 @@ public class UsuarioControllerRestful {
 	public void eliminar(@PathVariable Integer id) {
 		this.iUsuarioService.eliminar(id);
 	}
+	
+	
+	// Validar
+	// http://localhost:8086/API/v1.0/Intranet/Usuarios/intentLogin GET
+	@GetMapping(path = "/intentLogin", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> verificarCredenciales(@RequestBody UsuarioLoginTO usuarioLoginTO) {
+		var identificado = this.iUsuarioService.validarUsuario(usuarioLoginTO);
+		return ResponseEntity.status(HttpStatus.OK).body(identificado);
+	}
+	
 }

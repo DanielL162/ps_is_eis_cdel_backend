@@ -3,9 +3,11 @@ package com.senadi.pasantes.intranet.repository;
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
+import com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -36,5 +38,18 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 		Usuario usuario = this.buscarPorId(id);
 		this.entityManager.remove(usuario);
 	}
+
+	@Override
+	public UsuarioLoginDTO seleccionarPorCedulaUsuarioLoginDTO(String cedula) {
+		TypedQuery<UsuarioLoginDTO> myQuery=this.entityManager.createQuery(""
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO(u.id, u.cedula, u.password, u.rol) "
+				+ "from Usuario u where u.cedula=:datoCedula", UsuarioLoginDTO.class);
+		myQuery.setParameter("datoCedula", cedula);
+		
+		
+		return myQuery.getSingleResult();
+	}
+	
+	
 
 }
