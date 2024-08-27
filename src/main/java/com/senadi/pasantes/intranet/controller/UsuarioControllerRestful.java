@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,9 +19,10 @@ import com.senadi.pasantes.intranet.service.IUsuarioService;
 import com.senadi.pasantes.intranet.service.to.UsuarioLoginTO;
 import com.senadi.pasantes.intranet.service.to.UsuarioTO;
 
-@CrossOrigin
+
 @RestController
 @RequestMapping(path = "/Usuarios")
+@CrossOrigin(value = "http://localhost:8080")
 public class UsuarioControllerRestful {
 
 	@Autowired
@@ -59,8 +61,9 @@ public class UsuarioControllerRestful {
 	
 	// Validar
 	// http://localhost:8086/API/v1.0/Intranet/Usuarios/intentLogin GET
-	@GetMapping(path = "/intentLogin", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PatchMapping (path = "/intentLogin",consumes =  MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> verificarCredenciales(@RequestBody UsuarioLoginTO usuarioLoginTO) {
+		System.out.println("adf: "+usuarioLoginTO);
 		var identificado = this.iUsuarioService.validarUsuario(usuarioLoginTO);
 		return ResponseEntity.status(HttpStatus.OK).body(identificado);
 	}

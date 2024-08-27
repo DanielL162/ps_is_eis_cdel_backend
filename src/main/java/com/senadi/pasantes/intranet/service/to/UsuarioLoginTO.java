@@ -49,4 +49,10 @@ public class UsuarioLoginTO extends RepresentationModel<UsuarioLoginTO> implemen
 		return serialVersionUID;
 	}
 
+	@Override
+	public String toString() {
+		return "UsuarioLoginTO [cedula=" + cedula + ", password=" + password + ", rol=" + rol + "]";
+	}
+	
+
 }
