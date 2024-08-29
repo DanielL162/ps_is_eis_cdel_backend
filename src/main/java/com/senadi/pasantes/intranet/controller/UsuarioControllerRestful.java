@@ -22,7 +22,7 @@ import com.senadi.pasantes.intranet.service.to.UsuarioTO;
 
 @RestController
 @RequestMapping(path = "/Usuarios")
-@CrossOrigin(value = "http://localhost:8080")
+@CrossOrigin
 public class UsuarioControllerRestful {
 
 	@Autowired
