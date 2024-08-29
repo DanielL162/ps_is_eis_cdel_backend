@@ -48,19 +48,42 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Override
 	public Integer validarUsuario(UsuarioLoginTO usuarioLoginTO) {
-		UsuarioLoginDTO usuarioLoginDTO=this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioLoginTO.getCedula());
-		if (usuarioLoginTO.getPassword().equals(usuarioLoginDTO.getPassword())) {
-			System.out.println("La contraseña coincide");
-			if (usuarioLoginTO.getRol().equals(usuarioLoginDTO.getRol())) {
-				System.out.println("El rol es correcto");
-				return usuarioLoginDTO.getId();
+		try {
+			UsuarioLoginDTO usuarioLoginDTO = this.iUsuarioRepo
+					.seleccionarPorCedulaUsuarioLoginDTO(usuarioLoginTO.getCedula());
+
+			if (usuarioLoginTO.getPassword().equals(usuarioLoginDTO.getPassword())) {
+				System.out.println("La contraseña coincide");
+				if (usuarioLoginTO.getRol().equals(usuarioLoginDTO.getRol())) {
+					System.out.println("El rol es correcto");
+					return usuarioLoginDTO.getId();
+				}
+			} else {
+				System.out.println("La contraseña no coincide ");
 			}
-		}else  {
-			System.out.println("La contraseña no coincide");
+
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		
+
+		try {
+			UsuarioLoginDTO usuarioLoginDTOEmail = this.iUsuarioRepo
+					.seleccionarPorCorreoUsuarioLoginDTO(usuarioLoginTO.getEmail());
+			if (usuarioLoginTO.getPassword().equals(usuarioLoginDTOEmail.getPassword())) {
+				System.out.println("La contraseña coincide");
+				if (usuarioLoginTO.getRol().equals(usuarioLoginDTOEmail.getRol())) {
+					System.out.println("El rol es correcto");
+					return usuarioLoginDTOEmail.getId();
+				}
+			} else {
+				System.out.println("La contraseña no coincide ");
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 		return -1;
 	}
 
-	
 }

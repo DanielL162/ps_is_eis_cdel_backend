@@ -14,5 +14,7 @@ public interface IUsuarioService {
 	public void eliminar(Integer id);
 	
 	public Integer validarUsuario(UsuarioLoginTO usuarioLoginTO);
+	
+
 
 }

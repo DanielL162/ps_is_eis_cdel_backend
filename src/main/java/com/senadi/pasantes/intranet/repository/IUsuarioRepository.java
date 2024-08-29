@@ -10,4 +10,5 @@ public interface IUsuarioRepository {
 	public void actualizar(Usuario usuario);
 	public void eliminar(Integer id);
 	public UsuarioLoginDTO seleccionarPorCedulaUsuarioLoginDTO(String cedula);
+	public UsuarioLoginDTO seleccionarPorCorreoUsuarioLoginDTO(String email);
 }
