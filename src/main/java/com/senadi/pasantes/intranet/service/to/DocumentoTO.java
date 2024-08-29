@@ -14,7 +14,7 @@ public class DocumentoTO implements Serializable {
 	private String categoria;
 	private LocalDateTime fechaCreacion;
 	private LocalDateTime fechaActualizacion;
-	private String documento;
+	private byte[] documento;
 	private String documentoURL;
 	private String tipo;
 	private String estado;
@@ -63,11 +63,11 @@ public class DocumentoTO implements Serializable {
 		this.fechaActualizacion = fechaActualizacion;
 	}
 
-	public String getDocumento() {
+	public byte[] getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(String documento) {
+	public void setDocumento(byte[] documento) {
 		this.documento = documento;
 	}
 
