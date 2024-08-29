@@ -28,7 +28,7 @@ public class Notificacion {
 	@Column(name = "ntfc_fecha_fin")
 	private LocalDateTime fechaFin;
 
-	@Column(name = "ntfc_url_imagen")
+	@Column(name = "ntfc_url_imagen", columnDefinition = "text")
 	private String urlImagen;
 
 	@Column(name = "ntfc_importancia")
