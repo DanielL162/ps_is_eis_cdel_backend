@@ -18,6 +18,7 @@ public class UsuarioLoginTO extends RepresentationModel<UsuarioLoginTO> implemen
 	private static final long serialVersionUID = 1714083382412329352L;
 
 	private String cedula;
+	private String email;
 	private String password;
 	private String rol;
 
@@ -27,6 +28,14 @@ public class UsuarioLoginTO extends RepresentationModel<UsuarioLoginTO> implemen
 
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -47,6 +56,11 @@ public class UsuarioLoginTO extends RepresentationModel<UsuarioLoginTO> implemen
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "UsuarioLoginTO [cedula=" + cedula + ", email=" + email + ", rol=" + rol + "]";
 	}
 
 }

@@ -49,6 +49,19 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 		
 		return myQuery.getSingleResult();
 	}
+
+	@Override
+	public UsuarioLoginDTO seleccionarPorCorreoUsuarioLoginDTO(String email) {
+		TypedQuery<UsuarioLoginDTO> myQuery=this.entityManager.createQuery(""
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO(u.id, u.cedula, u.password, u.rol) "
+				+ "from Usuario u where u.email=:datoEmail", UsuarioLoginDTO.class);
+		myQuery.setParameter("datoEmail", email);
+		
+		
+		return myQuery.getSingleResult();
+	}
+	
+	
 	
 	
 
