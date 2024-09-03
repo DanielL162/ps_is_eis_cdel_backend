@@ -1,11 +1,16 @@
 package com.senadi.pasantes.intranet.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.senadi.pasantes.intranet.repository.IDocumentoRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
+import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoTO;
 
 @Service
@@ -43,5 +48,21 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	public void eliminar(Integer id) {
 		this.iDocumentoRepo.eliminar(id);
 	}
+
+	@Override
+	public List<DocumentoListaTO> buscarTodosDocumentoListaTO() {
+		
+		List<DocumentoListaDTO> documentoListaDTO = this.iDocumentoRepo.consultarTodosDocumentoListaDTO();
+		List<DocumentoListaTO> documentoListaTO = new ArrayList<>();
+		
+		for (DocumentoListaDTO docsDTO : documentoListaDTO) {
+			
+		}
+		
+		
+		return null;
+	}
+	
+	
 
 }

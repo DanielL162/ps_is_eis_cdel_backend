@@ -1,11 +1,11 @@
-package com.senadi.pasantes.intranet.service.to.copy;
+package com.senadi.pasantes.intranet.service.to;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 
-public class DocumentoTO implements Serializable {
+public class DocumentoListaTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

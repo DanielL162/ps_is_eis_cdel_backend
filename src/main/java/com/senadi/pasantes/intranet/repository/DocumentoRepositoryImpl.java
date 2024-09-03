@@ -1,11 +1,16 @@
 package com.senadi.pasantes.intranet.repository;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -35,5 +40,16 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 		Documento doc = this.buscarPorId(id);
 		this.entityManager.remove(doc);
 	}
+
+	@Override
+	public List<DocumentoListaDTO> consultarTodosDocumentoListaDTO() {
+		TypedQuery<DocumentoListaDTO> myQuery=this.entityManager.createQuery(""
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO(d.id, d.nombre, d.categoria, d.documento, d.documentoURL, d.tipo, d.estado) "
+				+ "from Documento d", DocumentoListaDTO.class);
+	
+		return myQuery.getResultList();
+	}
+	
+	
 
 }
