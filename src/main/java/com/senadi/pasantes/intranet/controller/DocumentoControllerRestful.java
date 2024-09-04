@@ -2,9 +2,11 @@ package com.senadi.pasantes.intranet.controller;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,13 +39,33 @@ public class DocumentoControllerRestful {
 		var DocumentoTo = this.iDocumentoService.buscarPorId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(DocumentoTo);
 	}
-	
+
 	// BUSCAR TODOS
 	// http://localhost:8086/API/v1.0/Intranet/Documentos GET
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoListaTO>> buscarTodos() {
 		List<DocumentoListaTO> documentosListaTO = this.iDocumentoService.buscarTodosDocumentoListaTO();
 		return ResponseEntity.status(HttpStatus.OK).body(documentosListaTO);
+	}
+
+	// BUSCAR POR ID
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/byte/{id} GET
+	@GetMapping(path = "/byte/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<byte[]> descargarDocumentoByte(@PathVariable Integer id) {
+		var documentoTo = this.iDocumentoService.buscarPorId(id);
+		
+		if (documentoTo != null) {
+            byte[] fileContent = Base64.getDecoder().decode(documentoTo.getDocumento());
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType(documentoTo.getTipo()));
+            headers.setContentDispositionFormData("attachment", documentoTo.getNombre());
+            headers.setContentLength(fileContent.length);
+            
+            return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+		
 	}
 
 	// INSERTAR

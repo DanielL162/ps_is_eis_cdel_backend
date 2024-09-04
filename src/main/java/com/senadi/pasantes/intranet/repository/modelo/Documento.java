@@ -36,7 +36,6 @@ public class Documento {
 	private LocalDateTime fechaActualizacion;
 
 	@Column(name = "docu_documento",  columnDefinition = "text")
-	
 	private String documento;
 
 	@Column(name = "docu_documento_url")

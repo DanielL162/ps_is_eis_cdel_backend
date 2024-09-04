@@ -1,5 +1,7 @@
 package com.senadi.pasantes.intranet.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +34,15 @@ public class NotificacionControllerRestful {
 		var NotificacionTo = this.iNotificacionService.buscarPorId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(NotificacionTo);
 	}
+	
+	// BUSCAR POR ID
+	// http://localhost:8086/API/v1.0/Intranet/Notificaciones GET
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<NotificacionTO>> buscarTodos() {
+		List<NotificacionTO> notificacionesTo = this.iNotificacionService.buscarTodos();
+		return ResponseEntity.status(HttpStatus.OK).body(notificacionesTo);
+	}
+	
 
 	// INSERTAR
 	// http://localhost:8086/API/v1.0/Intranet/Notificaciones POST

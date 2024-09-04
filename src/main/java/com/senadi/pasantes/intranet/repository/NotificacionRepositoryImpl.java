@@ -1,11 +1,15 @@
 package com.senadi.pasantes.intranet.repository;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -35,5 +39,17 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 		Notificacion notificacion = this.buscarPorId(id);
 		this.entityManager.remove(notificacion);
 	}
+
+	@Override
+	public List<Notificacion> buscarTodos() {
+		TypedQuery<Notificacion> myQuery=this.entityManager.createQuery(""
+				+ "select d from Notificacion d", Notificacion.class);
+	
+		return myQuery.getResultList();
+	}
+
+
+	
+	
 
 }

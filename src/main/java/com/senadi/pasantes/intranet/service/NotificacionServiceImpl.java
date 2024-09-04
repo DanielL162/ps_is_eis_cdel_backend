@@ -1,5 +1,8 @@
 package com.senadi.pasantes.intranet.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,21 @@ public class NotificacionServiceImpl implements INotificacionService {
 	@Override
 	public NotificacionTO buscarPorId(Integer id) {
 		return this.convertirATO(this.iNotificacionRepo.buscarPorId(id));
+	}
+	
+	
+
+	@Override
+	public List<NotificacionTO> buscarTodos() {
+		List<Notificacion> notificacions=this.iNotificacionRepo.buscarTodos();
+		List<NotificacionTO> notificacionTOs=new ArrayList<>();
+		
+		
+		for (Notificacion noti:notificacions  ) {
+			notificacionTOs.add(this.convertirATO(noti));
+		}
+		
+		return notificacionTOs;
 	}
 
 	@Override
