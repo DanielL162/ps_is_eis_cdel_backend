@@ -25,6 +25,14 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	private Documento convertirADocumento(DocumentoTO documentoTO) {
 		return modelMapper.map(documentoTO, Documento.class);
 	}
+	
+	private DocumentoListaTO documentoListaDTOToDocumentoListaTO(DocumentoListaDTO documentoListaDTO) {
+		return modelMapper.map(documentoListaDTO, DocumentoListaTO.class);
+	}
+
+	private DocumentoListaDTO documentoListaTOToDocumentoListaDTO(DocumentoListaTO documentoListaTO) {
+		return modelMapper.map(documentoListaTO, DocumentoListaDTO.class);
+	}
 
 	@Autowired
 	private IDocumentoRepository iDocumentoRepo;
@@ -56,11 +64,11 @@ public class DocumentoServiceImpl implements IDocumentoService {
 		List<DocumentoListaTO> documentoListaTO = new ArrayList<>();
 		
 		for (DocumentoListaDTO docsDTO : documentoListaDTO) {
-			
+			documentoListaTO.add(this.documentoListaDTOToDocumentoListaTO(docsDTO));
 		}
 		
 		
-		return null;
+		return documentoListaTO;
 	}
 	
 	
