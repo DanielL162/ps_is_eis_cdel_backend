@@ -37,6 +37,7 @@ public class Documento {
 
 	@Lob
 	@Column(name = "docu_documento")
+	
 	private String documento;
 
 	@Column(name = "docu_documento_url")
