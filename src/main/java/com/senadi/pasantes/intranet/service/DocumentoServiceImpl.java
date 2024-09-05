@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.senadi.pasantes.intranet.repository.IDocumentoRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
@@ -43,6 +44,14 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 	private DocumentoNormativaDTO documentoNormativaTOToDocumentoNormativaDTO(DocumentoNormativaTO documentoNormativaTO) {
 		return modelMapper.map(documentoNormativaTO, DocumentoNormativaDTO.class);
+	}
+	
+	private DocumentoInstructivoTO documentoInstructivoDTOToDocumentoInstructivoTO(DocumentoInstructivoDTO documentoInstructivoDTO) {
+		return modelMapper.map(documentoInstructivoDTO, DocumentoInstructivoTO.class);
+	}
+
+	private DocumentoInstructivoDTO documentoInstructivoTOToDocumentoInstructivoDTO(DocumentoInstructivoTO documentoInstructivoTO) {
+		return modelMapper.map(documentoInstructivoTO, DocumentoInstructivoDTO.class);
 	}
 
 	@Autowired
@@ -83,7 +92,7 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	}
 
 	@Override
-	public List<DocumentoNormativaTO> consultarNormativasTO() {
+	public List<DocumentoNormativaTO> buscarNormativasTO() {
 		List<DocumentoNormativaDTO> documentoNormativaDTOs = this.iDocumentoRepo.consultarNormativasDTO();
 		List<DocumentoNormativaTO>  documentoNormativaTOs = new ArrayList<>();
 		
@@ -96,9 +105,16 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	}
 
 	@Override
-	public List<DocumentoInstructivoTO> consultarInstructivosTO() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<DocumentoInstructivoTO> buscarInstructivosTO() {
+		List<DocumentoInstructivoDTO> documentoInstructivoDTOs = this.iDocumentoRepo.consultarInstructivosDTO();
+		List<DocumentoInstructivoTO>  documentoInstructivoTOs = new ArrayList<>();
+		
+		for (DocumentoInstructivoDTO normDTO : documentoInstructivoDTOs) {
+			documentoInstructivoTOs.add(this.documentoInstructivoDTOToDocumentoInstructivoTO(normDTO));
+		}
+		
+		
+		return documentoInstructivoTOs;
 	}
 	
 	

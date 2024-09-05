@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senadi.pasantes.intranet.service.IDocumentoService;
+import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
+import com.senadi.pasantes.intranet.service.to.DocumentoNormativaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoTO;
 
 @CrossOrigin
@@ -41,11 +43,27 @@ public class DocumentoControllerRestful {
 	}
 
 	// BUSCAR TODOS
-	// http://localhost:8086/API/v1.0/Intranet/Documentos GET
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/normativas GET
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoListaTO>> buscarTodos() {
 		List<DocumentoListaTO> documentosListaTO = this.iDocumentoService.buscarTodosDocumentoListaTO();
 		return ResponseEntity.status(HttpStatus.OK).body(documentosListaTO);
+	}
+	
+	// BUSCAR NORMATIVAS TO
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/instructivos GET
+	@GetMapping(path = "/normativas",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<DocumentoNormativaTO>> buscarNormativasTO() {
+		List<DocumentoNormativaTO> documentoNormativaTOs = this.iDocumentoService.buscarNormativasTO();
+		return ResponseEntity.status(HttpStatus.OK).body(documentoNormativaTOs);
+	}
+	
+	// BUSCAR INSTRUCTIVOS TO
+	// http://localhost:8086/API/v1.0/Intranet/Documentos GET
+	@GetMapping(path = "/instructivos",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<DocumentoInstructivoTO>> buscarInstructivosTO() {
+		List<DocumentoInstructivoTO> documentoInstructivoTOs = this.iDocumentoService.buscarInstructivosTO();
+		return ResponseEntity.status(HttpStatus.OK).body(documentoInstructivoTOs);
 	}
 
 	// BUSCAR POR ID

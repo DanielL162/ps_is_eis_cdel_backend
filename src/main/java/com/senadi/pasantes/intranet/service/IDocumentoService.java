@@ -21,8 +21,8 @@ public interface IDocumentoService {
 	
 	public List<DocumentoListaTO> buscarTodosDocumentoListaTO();
 	
-	public List<DocumentoNormativaTO> consultarNormativasTO();
+	public List<DocumentoNormativaTO> buscarNormativasTO();
 	
-	public List<DocumentoInstructivoTO> consultarInstructivosTO();
+	public List<DocumentoInstructivoTO> buscarInstructivosTO();
 
 }
