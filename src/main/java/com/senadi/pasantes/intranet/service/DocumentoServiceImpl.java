@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.senadi.pasantes.intranet.repository.IDocumentoRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
+import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
+import com.senadi.pasantes.intranet.service.to.DocumentoNormativaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoTO;
 
 @Service
@@ -32,6 +35,14 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 	private DocumentoListaDTO documentoListaTOToDocumentoListaDTO(DocumentoListaTO documentoListaTO) {
 		return modelMapper.map(documentoListaTO, DocumentoListaDTO.class);
+	}
+	
+	private DocumentoNormativaTO documentoNormativaDTOToDocumentoNormativaTO(DocumentoNormativaDTO documentoNormativaDTO) {
+		return modelMapper.map(documentoNormativaDTO, DocumentoNormativaTO.class);
+	}
+
+	private DocumentoNormativaDTO documentoNormativaTOToDocumentoNormativaDTO(DocumentoNormativaTO documentoNormativaTO) {
+		return modelMapper.map(documentoNormativaTO, DocumentoNormativaDTO.class);
 	}
 
 	@Autowired
@@ -70,6 +81,27 @@ public class DocumentoServiceImpl implements IDocumentoService {
 		
 		return documentoListaTO;
 	}
+
+	@Override
+	public List<DocumentoNormativaTO> consultarNormativasTO() {
+		List<DocumentoNormativaDTO> documentoNormativaDTOs = this.iDocumentoRepo.consultarNormativasDTO();
+		List<DocumentoNormativaTO>  documentoNormativaTOs = new ArrayList<>();
+		
+		for (DocumentoNormativaDTO normDTO : documentoNormativaDTOs) {
+			documentoNormativaTOs.add(this.documentoNormativaDTOToDocumentoNormativaTO(normDTO));
+		}
+		
+		
+		return documentoNormativaTOs;
+	}
+
+	@Override
+	public List<DocumentoInstructivoTO> consultarInstructivosTO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 	
 	
 

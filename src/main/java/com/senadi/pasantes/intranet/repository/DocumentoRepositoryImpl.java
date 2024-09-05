@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO;
 
 import jakarta.persistence.EntityManager;
@@ -49,6 +51,28 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	
 		return myQuery.getResultList();
 	}
+
+	@Override
+	public List<DocumentoNormativaDTO> consultarNormativasDTO() {
+		TypedQuery<DocumentoNormativaDTO> myQuery=this.entityManager.createQuery(""
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.documento, d.tipo) "
+				+ "from Documento d "
+				+ "where d.estado='A' and  d.categoria='normativa'", DocumentoNormativaDTO.class);
+	
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<DocumentoInstructivoDTO> consultarInstructivosDTO() {
+		TypedQuery<DocumentoInstructivoDTO> myQuery=this.entityManager.createQuery(""
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.documento, d.tipo) "
+				+ "from Documento d "
+				+ "where d.estado='A' and d.categoria='instructivo'", DocumentoInstructivoDTO.class);
+	
+		return myQuery.getResultList();
+	}
+	
+	
 	
 	
 

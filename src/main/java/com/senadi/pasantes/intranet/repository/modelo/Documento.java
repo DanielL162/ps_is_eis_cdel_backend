@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,7 +33,7 @@ public class Documento {
 	@Column(name = "docu_fecha_creacion")
 	private LocalDateTime fechaCreacion;
 
-	@Column(name = "docu_fecha_actualización")
+	@Column(name = "docu_fecha_actualizacion")
 	private LocalDateTime fechaActualizacion;
 
 	@Column(name = "docu_documento",  columnDefinition = "text")
@@ -48,7 +49,7 @@ public class Documento {
 	private String estado;
 
 	// Relaciones
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "docu_id_usuario")
 	private Usuario usuario;
 

@@ -2,8 +2,11 @@ package com.senadi.pasantes.intranet.repository.modelo;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,7 +49,7 @@ public class Usuario {
 	private String departamento;
 	
 	//Relaciones
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY)
 	private List<Notificacion> notificaciones;
 	
 	@OneToMany(mappedBy = "usuario")
@@ -55,7 +58,7 @@ public class Usuario {
 	@OneToMany(mappedBy = "emisor")
 	private List<Formulario> formularios;
 
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY)
 	private List<Documento> documentos;
 	
 	//Get y set
