@@ -29,7 +29,7 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	private Documento convertirADocumento(DocumentoTO documentoTO) {
 		return modelMapper.map(documentoTO, Documento.class);
 	}
-	
+
 	private DocumentoListaTO documentoListaDTOToDocumentoListaTO(DocumentoListaDTO documentoListaDTO) {
 		return modelMapper.map(documentoListaDTO, DocumentoListaTO.class);
 	}
@@ -68,8 +68,23 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	}
 
 	@Override
-	public void actualizar(DocumentoTO documentoTO) {
-		this.iDocumentoRepo.actualizar(this.convertirADocumento(documentoTO));
+	public Integer actualizar(DocumentoTO documentoTO) {
+		// En ambos casos se respeta la fecha de creacion.
+		// Si no se altera el documento y el tipo de documento:
+		var docActualizar = this.iDocumentoRepo.buscarPorId(documentoTO.getId());
+		docActualizar.setNombre(documentoTO.getNombre());
+		docActualizar.setCategoria(documentoTO.getCategoria());
+		docActualizar.setFechaActualizacion(documentoTO.getFechaActualizacion());
+		docActualizar.setUsuario(documentoTO.getUsuario());
+
+		// Si se coloca un nuevo documento:
+		if (documentoTO.getDocumento() != null) {
+			docActualizar.setDocumento(documentoTO.getDocumento());
+			docActualizar.setTipo(documentoTO.getTipo());
+			docActualizar.setEstado(documentoTO.getEstado());
+		}
+
+		return this.iDocumentoRepo.actualizar(docActualizar);
 	}
 
 	@Override
@@ -79,15 +94,14 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 	@Override
 	public List<DocumentoListaTO> buscarTodosDocumentoListaTO() {
-		
+
 		List<DocumentoListaDTO> documentoListaDTO = this.iDocumentoRepo.consultarTodosDocumentoListaDTO();
 		List<DocumentoListaTO> documentoListaTO = new ArrayList<>();
-		
+
 		for (DocumentoListaDTO docsDTO : documentoListaDTO) {
 			documentoListaTO.add(this.documentoListaDTOToDocumentoListaTO(docsDTO));
 		}
-		
-		
+
 		return documentoListaTO;
 	}
 
@@ -119,6 +133,6 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	
 	
 	
-	
+
 
 }

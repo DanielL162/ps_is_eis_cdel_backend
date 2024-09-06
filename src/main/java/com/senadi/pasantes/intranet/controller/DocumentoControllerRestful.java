@@ -96,9 +96,10 @@ public class DocumentoControllerRestful {
 	// ACTUALIZAR
 	// http://localhost:8086/API/v1.0/Intranet/Documentos/{id} PUT
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void actualizar(@PathVariable Integer id, @RequestBody DocumentoTO DocumentoTO) {
+	public Integer actualizar(@PathVariable Integer id, @RequestBody DocumentoTO DocumentoTO) {
 		DocumentoTO.setId(id);
-		this.iDocumentoService.actualizar(DocumentoTO);
+		
+		return this.iDocumentoService.actualizar(DocumentoTO);
 	}
 
 	// BORRAR

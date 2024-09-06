@@ -13,7 +13,7 @@ public interface IDocumentoRepository {
 
 	public Documento buscarPorId(Integer id);
 
-	public void actualizar(Documento documento);
+	public Integer actualizar(Documento documento);
 
 	public void eliminar(Integer id);
 	
