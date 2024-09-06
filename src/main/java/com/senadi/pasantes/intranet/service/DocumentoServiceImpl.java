@@ -1,5 +1,6 @@
 package com.senadi.pasantes.intranet.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoNormativaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoTO;
+import com.senadi.pasantes.intranet.service.to.LogTO;
 
 @Service
 public class DocumentoServiceImpl implements IDocumentoService {
@@ -56,10 +58,23 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 	@Autowired
 	private IDocumentoRepository iDocumentoRepo;
+	
+	@Autowired
+	private ILogService iLogService;
 
 	@Override
 	public void insertar(DocumentoTO documentoTO) {
 		this.iDocumentoRepo.insertar(this.convertirADocumento(documentoTO));
+		
+		//LOGS
+		LogTO logTO=new LogTO();
+		String accion=String.format("Inserto: [docu_id: %s]", documentoTO.getId());
+		
+		logTO.setId(documentoTO.getId());
+		logTO.setFechaAccion(LocalDateTime.now());
+		logTO.setAccion(accion);
+		this.iLogService.insertar(logTO);
+		
 	}
 
 	@Override
@@ -84,12 +99,40 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			docActualizar.setEstado(documentoTO.getEstado());
 		}
 
+		//LOGS
+				LogTO logTO=new LogTO();
+				String accion=String.format("Modifico a partir de: [docu_id: %s, "
+						+ "docu_categoria: %s, "
+						+ "docu_estado: %s, "
+						+ "docu_nombre: %s, "
+						+ "docu_tipo: %s, "
+						+ "docu_fecha_actualizacion: %s]", 
+						documentoTO.getId(), 
+						documentoTO.getCategoria(), 
+						documentoTO.getEstado(), 
+						documentoTO.getNombre(), 
+						documentoTO.getTipo(), 
+						documentoTO.getFechaActualizacion()
+						);
+				
+				logTO.setId(documentoTO.getId());
+				logTO.setFechaAccion(LocalDateTime.now());
+				logTO.setAccion(accion);
+				this.iLogService.insertar(logTO);
+		
 		return this.iDocumentoRepo.actualizar(docActualizar);
+
 	}
 
 	@Override
 	public void eliminar(Integer id) {
 		this.iDocumentoRepo.eliminar(id);
+	}
+	
+	@Override
+	public void cambiarEstado(Integer id, String nuevoEstado){
+		
+		
 	}
 
 	@Override
