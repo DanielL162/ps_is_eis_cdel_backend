@@ -19,6 +19,8 @@ public interface IDocumentoService {
 
 	public void eliminar(Integer id);
 	
+	public void cambiarEstado(Integer id,String nuevoEstado);
+	
 	public List<DocumentoListaTO> buscarTodosDocumentoListaTO();
 	
 	public List<DocumentoNormativaTO> buscarNormativasTO();
