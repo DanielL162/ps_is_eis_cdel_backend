@@ -1,7 +1,5 @@
 package com.senadi.pasantes.intranet.controller;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class DocumentoControllerRestful {
 		var DocumentoTo = this.iDocumentoService.buscarPorId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(DocumentoTo);
 	}
-	
+
 	// BUSCAR TODOS
 	// http://localhost:8086/API/v1.0/Intranet/Documentos GET
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,9 +54,10 @@ public class DocumentoControllerRestful {
 	// ACTUALIZAR
 	// http://localhost:8086/API/v1.0/Intranet/Documentos/{id} PUT
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void actualizar(@PathVariable Integer id, @RequestBody DocumentoTO DocumentoTO) {
+	public Integer actualizar(@PathVariable Integer id, @RequestBody DocumentoTO DocumentoTO) {
 		DocumentoTO.setId(id);
-		this.iDocumentoService.actualizar(DocumentoTO);
+		
+		return this.iDocumentoService.actualizar(DocumentoTO);
 	}
 
 	// BORRAR

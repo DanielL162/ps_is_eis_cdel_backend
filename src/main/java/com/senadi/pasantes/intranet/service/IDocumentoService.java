@@ -11,10 +11,10 @@ public interface IDocumentoService {
 
 	public DocumentoTO buscarPorId(Integer id);
 
-	public void actualizar(DocumentoTO documentoTO);
+	public Integer actualizar(DocumentoTO documentoTO);
 
 	public void eliminar(Integer id);
-	
+
 	public List<DocumentoListaTO> buscarTodosDocumentoListaTO();
 
 }

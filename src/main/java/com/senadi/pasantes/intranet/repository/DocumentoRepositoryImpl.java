@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
-import com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -31,8 +30,13 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	}
 
 	@Override
-	public void actualizar(Documento documento) {
-		this.entityManager.merge(documento);
+	public Integer actualizar(Documento documento) {
+		try {
+			this.entityManager.merge(documento);
+			return 1;
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
 	@Override
@@ -43,13 +47,11 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 
 	@Override
 	public List<DocumentoListaDTO> consultarTodosDocumentoListaDTO() {
-		TypedQuery<DocumentoListaDTO> myQuery=this.entityManager.createQuery(""
+		TypedQuery<DocumentoListaDTO> myQuery = this.entityManager.createQuery(""
 				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO(d.id, d.nombre, d.categoria, d.documento, d.documentoURL, d.tipo, d.estado) "
 				+ "from Documento d", DocumentoListaDTO.class);
-	
+
 		return myQuery.getResultList();
 	}
-	
-	
 
 }

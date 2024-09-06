@@ -17,7 +17,7 @@ public class DocumentoTO implements Serializable {
 	private String documento;
 	private String documentoURL;
 	private String tipo;
-	private String estado;
+	private String estado; //nombre, categoria, fechaActualizacion, docuemnto, tipo
 
 	// Relaciones
 	private Usuario usuario;
