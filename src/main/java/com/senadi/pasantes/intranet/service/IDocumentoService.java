@@ -2,8 +2,6 @@ package com.senadi.pasantes.intranet.service;
 
 import java.util.List;
 
-import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
-import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoNormativaTO;
@@ -17,14 +15,14 @@ public interface IDocumentoService {
 
 	public Integer actualizar(DocumentoTO documentoTO);
 
-	public void eliminar(Integer id);
-	
-	public void cambiarEstado(Integer id,String nuevoEstado);
-	
+	public Integer eliminar(Integer id);
+
+	public void cambiarEstado(Integer id, String nuevoEstado);
+
 	public List<DocumentoListaTO> buscarTodosDocumentoListaTO();
-	
+
 	public List<DocumentoNormativaTO> buscarNormativasTO();
-	
+
 	public List<DocumentoInstructivoTO> buscarInstructivosTO();
 
 }

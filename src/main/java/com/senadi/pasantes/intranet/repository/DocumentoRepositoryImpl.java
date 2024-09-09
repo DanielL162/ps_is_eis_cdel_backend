@@ -8,7 +8,6 @@ import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
-import com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -43,9 +42,16 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	}
 
 	@Override
-	public void eliminar(Integer id) {
+	public Integer eliminar(Integer id) {
 		Documento doc = this.buscarPorId(id);
-		this.entityManager.remove(doc);
+		System.out.println("dentro eliminar");
+		try {
+			this.entityManager.remove(doc);
+			return 1;
+		} catch (Exception e) {
+			return 0;
+
+		}
 	}
 
 	@Override
@@ -59,25 +65,21 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 
 	@Override
 	public List<DocumentoNormativaDTO> consultarNormativasDTO() {
-		TypedQuery<DocumentoNormativaDTO> myQuery=this.entityManager.createQuery(""
+		TypedQuery<DocumentoNormativaDTO> myQuery = this.entityManager.createQuery(""
 				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.documento, d.tipo) "
-				+ "from Documento d "
-				+ "where d.estado='A' and  d.categoria='normativa'", DocumentoNormativaDTO.class);
-	
+				+ "from Documento d " + "where d.estado='A' and  d.categoria='normativa'", DocumentoNormativaDTO.class);
+
 		return myQuery.getResultList();
 	}
 
 	@Override
 	public List<DocumentoInstructivoDTO> consultarInstructivosDTO() {
-		TypedQuery<DocumentoInstructivoDTO> myQuery=this.entityManager.createQuery(""
+		TypedQuery<DocumentoInstructivoDTO> myQuery = this.entityManager.createQuery(""
 				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.documento, d.tipo) "
-				+ "from Documento d "
-				+ "where d.estado='A' and d.categoria='instructivo'", DocumentoInstructivoDTO.class);
-	
+				+ "from Documento d " + "where d.estado='A' and d.categoria='instructivo'",
+				DocumentoInstructivoDTO.class);
+
 		return myQuery.getResultList();
 	}
-	
-	
-
 
 }

@@ -1,7 +1,5 @@
 package com.senadi.pasantes.intranet.controller;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -49,18 +47,18 @@ public class DocumentoControllerRestful {
 		List<DocumentoListaTO> documentosListaTO = this.iDocumentoService.buscarTodosDocumentoListaTO();
 		return ResponseEntity.status(HttpStatus.OK).body(documentosListaTO);
 	}
-	
+
 	// BUSCAR NORMATIVAS TO
 	// http://localhost:8086/API/v1.0/Intranet/Documentos/instructivos GET
-	@GetMapping(path = "/normativas",produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/normativas", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoNormativaTO>> buscarNormativasTO() {
 		List<DocumentoNormativaTO> documentoNormativaTOs = this.iDocumentoService.buscarNormativasTO();
 		return ResponseEntity.status(HttpStatus.OK).body(documentoNormativaTOs);
 	}
-	
+
 	// BUSCAR INSTRUCTIVOS TO
 	// http://localhost:8086/API/v1.0/Intranet/Documentos GET
-	@GetMapping(path = "/instructivos",produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/instructivos", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoInstructivoTO>> buscarInstructivosTO() {
 		List<DocumentoInstructivoTO> documentoInstructivoTOs = this.iDocumentoService.buscarInstructivosTO();
 		return ResponseEntity.status(HttpStatus.OK).body(documentoInstructivoTOs);
@@ -71,19 +69,19 @@ public class DocumentoControllerRestful {
 	@GetMapping(path = "/byte/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<byte[]> descargarDocumentoByte(@PathVariable Integer id) {
 		var documentoTo = this.iDocumentoService.buscarPorId(id);
-		
+
 		if (documentoTo != null) {
-            byte[] fileContent = Base64.getDecoder().decode(documentoTo.getDocumento());
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType(documentoTo.getTipo()));
-            headers.setContentDispositionFormData("attachment", documentoTo.getNombre());
-            headers.setContentLength(fileContent.length);
-            
-            return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-		
+			byte[] fileContent = Base64.getDecoder().decode(documentoTo.getDocumento());
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.parseMediaType(documentoTo.getTipo()));
+			headers.setContentDispositionFormData("attachment", documentoTo.getNombre());
+			headers.setContentLength(fileContent.length);
+
+			return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
 	}
 
 	// INSERTAR
@@ -98,14 +96,14 @@ public class DocumentoControllerRestful {
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Integer actualizar(@PathVariable Integer id, @RequestBody DocumentoTO DocumentoTO) {
 		DocumentoTO.setId(id);
-		
+
 		return this.iDocumentoService.actualizar(DocumentoTO);
 	}
 
 	// BORRAR
 	// http://localhost:8086/API/v1.0/Intranet/Documentos/{id} DELETE
 	@DeleteMapping(path = "/{id}")
-	public void eliminar(@PathVariable Integer id) {
-		this.iDocumentoService.eliminar(id);
+	public Integer eliminar(@PathVariable Integer id) {
+		return this.iDocumentoService.eliminar(id);
 	}
 }
