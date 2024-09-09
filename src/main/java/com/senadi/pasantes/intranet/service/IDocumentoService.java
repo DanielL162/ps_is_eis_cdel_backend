@@ -19,7 +19,7 @@ public interface IDocumentoService {
 
 	public void eliminar(Integer id);
 	
-	public void cambiarEstado(Integer id,String nuevoEstado);
+	public void cambiarEstado(Integer id, Integer idAdmin);
 	
 	public List<DocumentoListaTO> buscarTodosDocumentoListaTO();
 	

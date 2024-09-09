@@ -108,4 +108,13 @@ public class DocumentoControllerRestful {
 	public void eliminar(@PathVariable Integer id) {
 		this.iDocumentoService.eliminar(id);
 	}
+	
+	// CAMBIAR ESTADO
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/cambio_estado PUT
+	@PutMapping(path = "/{id_docu}/{id_user}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Integer cambiarEstado(@RequestBody DocumentoTO DocumentoTO) {
+		
+		
+		return this.iDocumentoService.cambiarEstado(DocumentoTO.getId(),DocumentoTO.getUsuario().getId());
+	}
 }

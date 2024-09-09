@@ -39,42 +39,46 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	private DocumentoListaDTO documentoListaTOToDocumentoListaDTO(DocumentoListaTO documentoListaTO) {
 		return modelMapper.map(documentoListaTO, DocumentoListaDTO.class);
 	}
-	
-	private DocumentoNormativaTO documentoNormativaDTOToDocumentoNormativaTO(DocumentoNormativaDTO documentoNormativaDTO) {
+
+	private DocumentoNormativaTO documentoNormativaDTOToDocumentoNormativaTO(
+			DocumentoNormativaDTO documentoNormativaDTO) {
 		return modelMapper.map(documentoNormativaDTO, DocumentoNormativaTO.class);
 	}
 
-	private DocumentoNormativaDTO documentoNormativaTOToDocumentoNormativaDTO(DocumentoNormativaTO documentoNormativaTO) {
+	private DocumentoNormativaDTO documentoNormativaTOToDocumentoNormativaDTO(
+			DocumentoNormativaTO documentoNormativaTO) {
 		return modelMapper.map(documentoNormativaTO, DocumentoNormativaDTO.class);
 	}
-	
-	private DocumentoInstructivoTO documentoInstructivoDTOToDocumentoInstructivoTO(DocumentoInstructivoDTO documentoInstructivoDTO) {
+
+	private DocumentoInstructivoTO documentoInstructivoDTOToDocumentoInstructivoTO(
+			DocumentoInstructivoDTO documentoInstructivoDTO) {
 		return modelMapper.map(documentoInstructivoDTO, DocumentoInstructivoTO.class);
 	}
 
-	private DocumentoInstructivoDTO documentoInstructivoTOToDocumentoInstructivoDTO(DocumentoInstructivoTO documentoInstructivoTO) {
+	private DocumentoInstructivoDTO documentoInstructivoTOToDocumentoInstructivoDTO(
+			DocumentoInstructivoTO documentoInstructivoTO) {
 		return modelMapper.map(documentoInstructivoTO, DocumentoInstructivoDTO.class);
 	}
 
 	@Autowired
 	private IDocumentoRepository iDocumentoRepo;
-	
+
 	@Autowired
 	private ILogService iLogService;
 
 	@Override
 	public void insertar(DocumentoTO documentoTO) {
 		this.iDocumentoRepo.insertar(this.convertirADocumento(documentoTO));
-		
-		//LOGS
-		LogTO logTO=new LogTO();
-		String accion=String.format("Inserto: [docu_id: %s]", documentoTO.getId());
-		
+
+		// LOGS
+		LogTO logTO = new LogTO();
+		String accion = String.format("Inserto: [docu_id: %s]", documentoTO.getId());
+
 		logTO.setId(documentoTO.getId());
 		logTO.setFechaAccion(LocalDateTime.now());
 		logTO.setAccion(accion);
 		this.iLogService.insertar(logTO);
-		
+
 	}
 
 	@Override
@@ -98,29 +102,27 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			docActualizar.setTipo(documentoTO.getTipo());
 			docActualizar.setEstado(documentoTO.getEstado());
 		}
+    
+		Integer act = -1;
+		try {
+			// LOGS
+			LogTO logTO = new LogTO();
+			String accion = String.format(
+					"Modifico a partir de: [docu_id: %s, " + "docu_categoria: %s, "
+							+ "docu_nombre: %s, " + "docu_fecha_actualizacion: %s]",
+					documentoTO.getId(), documentoTO.getCategoria(), documentoTO.getNombre()
+					, documentoTO.getFechaActualizacion());
 
-		//LOGS
-				LogTO logTO=new LogTO();
-				String accion=String.format("Modifico a partir de: [docu_id: %s, "
-						+ "docu_categoria: %s, "
-						+ "docu_estado: %s, "
-						+ "docu_nombre: %s, "
-						+ "docu_tipo: %s, "
-						+ "docu_fecha_actualizacion: %s]", 
-						documentoTO.getId(), 
-						documentoTO.getCategoria(), 
-						documentoTO.getEstado(), 
-						documentoTO.getNombre(), 
-						documentoTO.getTipo(), 
-						documentoTO.getFechaActualizacion()
-						);
-				
-				logTO.setId(documentoTO.getId());
-				logTO.setFechaAccion(LocalDateTime.now());
-				logTO.setAccion(accion);
-				this.iLogService.insertar(logTO);
-		
-		return this.iDocumentoRepo.actualizar(docActualizar);
+			logTO.setFechaAccion(LocalDateTime.now());
+			logTO.setAccion(accion);
+			this.iLogService.insertar(logTO);
+
+			act = this.iDocumentoRepo.actualizar(docActualizar);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return act;
 
 	}
 
@@ -128,11 +130,36 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	public void eliminar(Integer id) {
 		this.iDocumentoRepo.eliminar(id);
 	}
-	
+
 	@Override
-	public void cambiarEstado(Integer id, String nuevoEstado){
-		
-		
+	public void cambiarEstado(Integer id, Integer idAdmin) {
+		Documento docu = this.iDocumentoRepo.buscarPorId(id);
+
+		try {
+			
+			// LOGS
+			LogTO logTO = new LogTO();
+			String accion = String.format(
+					"Modifico a partir de: [docu_id: %s, " + "docu_estado: %s]",
+					docu.getId(), docu.getEstado());
+
+			logTO.setFechaAccion(LocalDateTime.now());
+			logTO.setAccion(accion);
+			this.iLogService.insertar(logTO);
+			
+			if (docu.getEstado().equals("A")) {
+				docu.setEstado("I");
+			} else if (docu.getEstado().equals("I")) {
+				docu.setEstado("A");
+			}
+			
+			this.iDocumentoRepo.actualizar(docu);
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -151,31 +178,25 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	@Override
 	public List<DocumentoNormativaTO> buscarNormativasTO() {
 		List<DocumentoNormativaDTO> documentoNormativaDTOs = this.iDocumentoRepo.consultarNormativasDTO();
-		List<DocumentoNormativaTO>  documentoNormativaTOs = new ArrayList<>();
-		
+		List<DocumentoNormativaTO> documentoNormativaTOs = new ArrayList<>();
+
 		for (DocumentoNormativaDTO normDTO : documentoNormativaDTOs) {
 			documentoNormativaTOs.add(this.documentoNormativaDTOToDocumentoNormativaTO(normDTO));
 		}
-		
-		
+
 		return documentoNormativaTOs;
 	}
 
 	@Override
 	public List<DocumentoInstructivoTO> buscarInstructivosTO() {
 		List<DocumentoInstructivoDTO> documentoInstructivoDTOs = this.iDocumentoRepo.consultarInstructivosDTO();
-		List<DocumentoInstructivoTO>  documentoInstructivoTOs = new ArrayList<>();
-		
+		List<DocumentoInstructivoTO> documentoInstructivoTOs = new ArrayList<>();
+
 		for (DocumentoInstructivoDTO normDTO : documentoInstructivoDTOs) {
 			documentoInstructivoTOs.add(this.documentoInstructivoDTOToDocumentoInstructivoTO(normDTO));
 		}
-		
-		
+
 		return documentoInstructivoTOs;
 	}
-	
-	
-	
-
 
 }
