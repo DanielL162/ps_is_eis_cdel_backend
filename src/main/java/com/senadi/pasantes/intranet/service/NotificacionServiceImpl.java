@@ -1,5 +1,6 @@
 package com.senadi.pasantes.intranet.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,10 +57,44 @@ public class NotificacionServiceImpl implements INotificacionService {
 	public void actualizar(NotificacionTO notificacionTO) {
 		this.iNotificacionRepo.actualizar(this.convertirANotificacion(notificacionTO));
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public void eliminar(Integer id) {
 		this.iNotificacionRepo.eliminar(id);
 	}
+	
+	
+	@Override
+	public List<NotificacionTO> obtenerNotificaciones() {
+		
+		LocalDateTime fechaActual= LocalDateTime.now();
+		List<Notificacion> notificaciones= this.iNotificacionRepo.buscarPorfecha(fechaActual);
+
+		List<NotificacionTO> notificacionTOs = new ArrayList<>();
+		for (Notificacion notificacion : notificaciones) {
+			NotificacionTO notificacionTO=  this.convertirATO(notificacion);
+			notificacionTOs.add(notificacionTO);
+		}
+		
+	
+		
+		return notificacionTOs;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

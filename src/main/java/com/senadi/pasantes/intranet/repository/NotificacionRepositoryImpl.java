@@ -1,5 +1,6 @@
 package com.senadi.pasantes.intranet.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -47,7 +48,25 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 	
 		return myQuery.getResultList();
 	}
+	
+	
+	 public List<Notificacion> buscarPorfecha(LocalDateTime fechaActual) {
+		   String jpql = "SELECT d FROM Notificacion d " +
+                   "WHERE :fechaActual BETWEEN d.fechaInicio AND d.fechaFin " +
+                   "AND d.estado = 'A' " +
+                   "ORDER BY CASE " +
+                   "    WHEN d.importancia = 'alta' THEN 1 " +
+                   "    WHEN d.importancia = 'media' THEN 2 " +
+                   "    WHEN d.importancia = 'baja' THEN 3 " +
+                   "    ELSE 4 " +
+                   "END";
 
+	        TypedQuery<Notificacion> myQuery = this.entityManager.createQuery(jpql, Notificacion.class);
+	        myQuery.setParameter("fechaActual", fechaActual);
+
+	        return myQuery.getResultList();
+	    }
+	
 
 	
 	
