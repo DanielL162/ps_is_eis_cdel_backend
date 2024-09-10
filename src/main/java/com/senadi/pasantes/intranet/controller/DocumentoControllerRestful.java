@@ -108,13 +108,11 @@ public class DocumentoControllerRestful {
 	}
 	
 	// CAMBIAR ESTADO
-	// http://localhost:8086/API/v1.0/Intranet/Documentos/cambio_estado PUT
-	@PutMapping(path = "/{id_docu}/{id_user}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Integer cambiarEstado(@RequestBody DocumentoTO DocumentoTO) {
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/6/1 POST
+	@PostMapping(path = "/{idDocu}/{idAdmin}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> cambiarEstado(@PathVariable Integer idDocu,@PathVariable Integer idAdmin) {
 		
+		return ResponseEntity.status(HttpStatus.OK).body(this.iDocumentoService.cambiarEstado(idDocu, idAdmin));
 		
-//		return this.iDocumentoService.cambiarEstado(DocumentoTO.getId(),DocumentoTO.getUsuario().getId());
-		
-		return 0;
 	}
 }

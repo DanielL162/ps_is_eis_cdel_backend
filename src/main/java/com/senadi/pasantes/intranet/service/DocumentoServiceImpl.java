@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.senadi.pasantes.intranet.repository.IDocumentoRepository;
+import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
+import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
@@ -65,6 +67,13 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 	@Autowired
 	private ILogService iLogService;
+	
+	
+	@Autowired
+	private IUsuarioService iUsuarioService;
+	
+	@Autowired
+	private IUsuarioRepository iUsuarioRepository;
 
 	@Override
 	public void insertar(DocumentoTO documentoTO) {
@@ -134,9 +143,9 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	}
 
 	@Override
-	public void cambiarEstado(Integer id, Integer idAdmin) {
+	public Integer cambiarEstado(Integer id, Integer idAdmin) {
 		Documento docu = this.iDocumentoRepo.buscarPorId(id);
-
+		System.out.println("DocumentoServiceImpl>cambiarEstado>docu: "+docu);
 		try {
 			
 			// LOGS
@@ -147,7 +156,15 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 			logTO.setFechaAccion(LocalDateTime.now());
 			logTO.setAccion(accion);
+			
+			Usuario usuario= this.iUsuarioRepository.buscarPorId(idAdmin);
+			
+			logTO.setUsuario(usuario);
+			usuario.setLogs(null);
+			
 			this.iLogService.insertar(logTO);
+			
+			docu.setUsuario(usuario);
 			
 			if (docu.getEstado().equals("A")) {
 				docu.setEstado("I");
@@ -157,12 +174,14 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			
 			this.iDocumentoRepo.actualizar(docu);
 
+			System.out.println("SE ACTUALIZAO");
+			return 1;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-
+		return 0;
 	}
 
 	@Override

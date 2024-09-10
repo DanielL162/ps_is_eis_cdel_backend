@@ -16,7 +16,7 @@ public interface IDocumentoService {
 	public Integer actualizar(DocumentoTO documentoTO);
 
 	
-	public void cambiarEstado(Integer id, Integer idAdmin);
+	public Integer cambiarEstado(Integer id, Integer idAdmin);
 	
 	public Integer eliminar(Integer id);
 
