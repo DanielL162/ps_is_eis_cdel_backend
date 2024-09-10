@@ -15,12 +15,12 @@ public interface IDocumentoRepository {
 
 	public Integer actualizar(Documento documento);
 
-	public void eliminar(Integer id);
-	
+	public Integer eliminar(Integer id);
+
 	public List<DocumentoListaDTO> consultarTodosDocumentoListaDTO();
-	
+
 	public List<DocumentoNormativaDTO> consultarNormativasDTO();
-	
+
 	public List<DocumentoInstructivoDTO> consultarInstructivosDTO();
 
 }

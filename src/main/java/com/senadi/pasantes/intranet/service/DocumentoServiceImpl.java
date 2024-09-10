@@ -109,9 +109,10 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			LogTO logTO = new LogTO();
 			String accion = String.format(
 					"Modifico a partir de: [docu_id: %s, " + "docu_categoria: %s, "
-							+ "docu_nombre: %s, " + "docu_fecha_actualizacion: %s]",
-					documentoTO.getId(), documentoTO.getCategoria(), documentoTO.getNombre()
-					, documentoTO.getFechaActualizacion());
+							+ "docu_nombre: %s, "+ "docu_tipo: %s, " + "docu_fecha_actualizacion: %s]",
+					documentoTO.getId(), documentoTO.getCategoria(), documentoTO.getNombre(),
+					documentoTO.getTipo(),
+					documentoTO.getFechaActualizacion());
 
 			logTO.setFechaAccion(LocalDateTime.now());
 			logTO.setAccion(accion);
@@ -124,11 +125,12 @@ public class DocumentoServiceImpl implements IDocumentoService {
 		}
 		return act;
 
+
 	}
 
 	@Override
-	public void eliminar(Integer id) {
-		this.iDocumentoRepo.eliminar(id);
+	public Integer eliminar(Integer id) {
+		return this.iDocumentoRepo.eliminar(id);
 	}
 
 	@Override
@@ -159,6 +161,7 @@ public class DocumentoServiceImpl implements IDocumentoService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 
 	}
 
