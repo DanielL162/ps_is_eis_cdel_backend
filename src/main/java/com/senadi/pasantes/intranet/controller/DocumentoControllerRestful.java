@@ -115,6 +115,8 @@ public class DocumentoControllerRestful {
 	public Integer cambiarEstado(@RequestBody DocumentoTO DocumentoTO) {
 		
 		
-		return this.iDocumentoService.cambiarEstado(DocumentoTO.getId(),DocumentoTO.getUsuario().getId());
+//		return this.iDocumentoService.cambiarEstado(DocumentoTO.getId(),DocumentoTO.getUsuario().getId());
+		
+		return 0;
 	}
 }
