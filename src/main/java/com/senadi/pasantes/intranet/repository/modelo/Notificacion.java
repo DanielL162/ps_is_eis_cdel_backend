@@ -91,6 +91,14 @@ public class Notificacion {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	@Override
+	public String toString() {
+		return "Notificacion [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", importancia=" + importancia + ", estado=" + estado + " ]";
+	}
 	
 
+	
+	
+	
+	
 }

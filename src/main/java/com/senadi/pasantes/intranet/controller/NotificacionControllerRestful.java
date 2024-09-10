@@ -65,4 +65,20 @@ public class NotificacionControllerRestful {
 	public void eliminar(@PathVariable Integer id) {
 		this.iNotificacionService.eliminar(id);
 	}
+	
+	
+	
+	
+	// BUSCAR POR ID
+		// http://localhost:8086/API/v1.0/Intranet/Notificaciones/activos GET
+		@GetMapping(path = "/activos", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<NotificacionTO>> buscarTodosFecha() {
+			List<NotificacionTO> notificacionesTo = this.iNotificacionService.obtenerNotificaciones();
+			return ResponseEntity.status(HttpStatus.OK).body(notificacionesTo);
+		}
+		
+	
+	
+	
+	
 }
