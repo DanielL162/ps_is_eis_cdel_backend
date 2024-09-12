@@ -117,14 +117,19 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			// LOGS
 			LogTO logTO = new LogTO();
 			String accion = String.format(
-					"Modifico a partir de: [docu_id: %s, " + "docu_categoria: %s, "
-							+ "docu_nombre: %s, "+ "docu_tipo: %s, " + "docu_fecha_actualizacion: %s]",
+					"Modifico a partir de: [docu_id: %s, " + 
+							"docu_categoria: %s, " + 
+							"docu_nombre: %s, "+ 
+							"docu_tipo: %s, " + 
+							"docu_fecha_actualizacion: %s]",
 					documentoTO.getId(), documentoTO.getCategoria(), documentoTO.getNombre(),
 					documentoTO.getTipo(),
 					documentoTO.getFechaActualizacion());
 
 			logTO.setFechaAccion(LocalDateTime.now());
 			logTO.setAccion(accion);
+			logTO.setUsuario(this.iUsuarioRepository.buscarPorId(documentoTO.getId()));
+			
 			this.iLogService.insertar(logTO);
 
 			act = this.iDocumentoRepo.actualizar(docActualizar);

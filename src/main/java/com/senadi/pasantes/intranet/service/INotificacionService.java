@@ -19,4 +19,6 @@ public interface INotificacionService {
 
 	List<NotificacionTO> obtenerNotificaciones();
 
+	public Integer cambiarEstado(Integer idImg, Integer idAdmin);
+
 }
