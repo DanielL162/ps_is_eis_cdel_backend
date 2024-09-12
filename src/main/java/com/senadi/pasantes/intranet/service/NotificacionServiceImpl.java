@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.senadi.pasantes.intranet.repository.INotificacionRepository;
+import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
+import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
+import com.senadi.pasantes.intranet.repository.modelo.Usuario;
+import com.senadi.pasantes.intranet.service.to.LogTO;
 import com.senadi.pasantes.intranet.service.to.NotificacionTO;
 
 @Service
@@ -27,6 +31,13 @@ public class NotificacionServiceImpl implements INotificacionService {
 
 	@Autowired
 	private INotificacionRepository iNotificacionRepo;
+	
+	@Autowired
+	private ILogService iLogService;
+	
+	@Autowired
+	private IUsuarioRepository iUsuarioRepository;
+
 
 	@Override
 	public void insertar(NotificacionTO notificacionTO) {
@@ -37,19 +48,16 @@ public class NotificacionServiceImpl implements INotificacionService {
 	public NotificacionTO buscarPorId(Integer id) {
 		return this.convertirATO(this.iNotificacionRepo.buscarPorId(id));
 	}
-	
-	
 
 	@Override
 	public List<NotificacionTO> buscarTodos() {
-		List<Notificacion> notificacions=this.iNotificacionRepo.buscarTodos();
-		List<NotificacionTO> notificacionTOs=new ArrayList<>();
-		
-		
-		for (Notificacion noti:notificacions  ) {
+		List<Notificacion> notificacions = this.iNotificacionRepo.buscarTodos();
+		List<NotificacionTO> notificacionTOs = new ArrayList<>();
+
+		for (Notificacion noti : notificacions) {
 			notificacionTOs.add(this.convertirATO(noti));
 		}
-		
+
 		return notificacionTOs;
 	}
 
@@ -57,44 +65,70 @@ public class NotificacionServiceImpl implements INotificacionService {
 	public void actualizar(NotificacionTO notificacionTO) {
 		this.iNotificacionRepo.actualizar(this.convertirANotificacion(notificacionTO));
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 	@Override
 	public void eliminar(Integer id) {
 		this.iNotificacionRepo.eliminar(id);
 	}
-	
-	
+
 	@Override
 	public List<NotificacionTO> obtenerNotificaciones() {
-		
-		LocalDateTime fechaActual= LocalDateTime.now();
-		List<Notificacion> notificaciones= this.iNotificacionRepo.buscarPorfecha(fechaActual);
+
+		LocalDateTime fechaActual = LocalDateTime.now();
+		List<Notificacion> notificaciones = this.iNotificacionRepo.buscarPorfecha(fechaActual);
 
 		List<NotificacionTO> notificacionTOs = new ArrayList<>();
 		for (Notificacion notificacion : notificaciones) {
-			NotificacionTO notificacionTO=  this.convertirATO(notificacion);
+			NotificacionTO notificacionTO = this.convertirATO(notificacion);
 			notificacionTOs.add(notificacionTO);
 		}
-		
-	
-		
+
 		return notificacionTOs;
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public Integer cambiarEstado(Integer idImg, Integer idAdmin) {
+		Notificacion img = this.iNotificacionRepo.buscarPorId(idImg);
+		System.out.println("ImagenServiceImpl>cambiarEstado>img: " + img);
+		try {
+			// LOGS
+			LogTO logTO = new LogTO();
+			String accion = String.format("Modifico a partir de: [ntfc_id: %s, " 
+					+ "ntfc_estado: %s, "
+					+ "ntfc_fecha_fin: %s, " 
+					+ "ntfc_fecha_inicio: %s, " 
+					+ "ntfc_importancia: %s " 
+					+ "]", img.getId(), img.getEstado(), img.getFechaFin(), img.getFechaInicio(), img.getImportancia());
+
+			logTO.setFechaAccion(LocalDateTime.now());
+			logTO.setAccion(accion);
+
+			Usuario usuario = this.iUsuarioRepository.buscarPorId(idAdmin);
+
+			logTO.setUsuario(usuario);
+			usuario.setLogs(null);
+
+			this.iLogService.insertar(logTO);
+
+			img.setUsuario(usuario);
+
+			if (img.getEstado().equals("A")) {
+				img.setEstado("I");
+			} else if (img.getEstado().equals("I")) {
+				img.setEstado("A");
+			}
+
+			this.iNotificacionRepo.actualizar(img);
+
+			System.out.println("SE ACTUALIZAO");
+			return 1;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 
 }

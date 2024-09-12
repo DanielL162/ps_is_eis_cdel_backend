@@ -11,5 +11,7 @@ public interface ILogService {
 	public void actualizar(LogTO logTO);
 
 	public void eliminar(Integer id);
+	
+
 
 }

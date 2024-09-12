@@ -67,6 +67,15 @@ public class NotificacionControllerRestful {
 	}
 	
 	
+	// CAMBIAR ESTADO
+	// http://localhost:8086/API/v1.0/Intranet/Notificaciones/6/1 POST
+	@PostMapping(path = "/{idImg}/{idAdmin}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> cambiarEstado(@PathVariable Integer idImg,@PathVariable Integer idAdmin) {
+		
+		return ResponseEntity.status(HttpStatus.OK).body(this.iNotificacionService.cambiarEstado(idImg, idAdmin));
+		
+	}
+	
 	
 	
 	// BUSCAR POR ID
