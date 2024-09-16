@@ -34,7 +34,7 @@ public class NotificacionControllerRestful {
 		var NotificacionTo = this.iNotificacionService.buscarPorId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(NotificacionTo);
 	}
-	
+
 	// BUSCAR POR ID
 	// http://localhost:8086/API/v1.0/Intranet/Notificaciones GET
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,7 +42,6 @@ public class NotificacionControllerRestful {
 		List<NotificacionTO> notificacionesTo = this.iNotificacionService.buscarTodos();
 		return ResponseEntity.status(HttpStatus.OK).body(notificacionesTo);
 	}
-	
 
 	// INSERTAR
 	// http://localhost:8086/API/v1.0/Intranet/Notificaciones POST
@@ -54,9 +53,10 @@ public class NotificacionControllerRestful {
 	// ACTUALIZAR
 	// http://localhost:8086/API/v1.0/Intranet/Notificaciones/{id} PUT
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void actualizar(@PathVariable Integer id, @RequestBody NotificacionTO NotificacionTO) {
+	public Integer actualizar(@PathVariable Integer id, @RequestBody NotificacionTO NotificacionTO) {
 		NotificacionTO.setId(id);
-		this.iNotificacionService.actualizar(NotificacionTO);
+		return this.iNotificacionService.actualizar(NotificacionTO);
+
 	}
 
 	// BORRAR
@@ -65,29 +65,22 @@ public class NotificacionControllerRestful {
 	public void eliminar(@PathVariable Integer id) {
 		this.iNotificacionService.eliminar(id);
 	}
-	
-	
+
 	// CAMBIAR ESTADO
 	// http://localhost:8086/API/v1.0/Intranet/Notificaciones/6/1 POST
-	@PostMapping(path = "/{idImg}/{idAdmin}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> cambiarEstado(@PathVariable Integer idImg,@PathVariable Integer idAdmin) {
-		
+	@PostMapping(path = "/{idImg}/{idAdmin}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> cambiarEstado(@PathVariable Integer idImg, @PathVariable Integer idAdmin) {
+
 		return ResponseEntity.status(HttpStatus.OK).body(this.iNotificacionService.cambiarEstado(idImg, idAdmin));
-		
+
 	}
-	
-	
-	
+
 	// BUSCAR POR ID
-		// http://localhost:8086/API/v1.0/Intranet/Notificaciones/activos GET
-		@GetMapping(path = "/activos", produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<List<NotificacionTO>> buscarTodosFecha() {
-			List<NotificacionTO> notificacionesTo = this.iNotificacionService.obtenerNotificaciones();
-			return ResponseEntity.status(HttpStatus.OK).body(notificacionesTo);
-		}
-		
-	
-	
-	
-	
+	// http://localhost:8086/API/v1.0/Intranet/Notificaciones/activos GET
+	@GetMapping(path = "/activos", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<NotificacionTO>> buscarTodosFecha() {
+		List<NotificacionTO> notificacionesTo = this.iNotificacionService.obtenerNotificaciones();
+		return ResponseEntity.status(HttpStatus.OK).body(notificacionesTo);
+	}
+
 }

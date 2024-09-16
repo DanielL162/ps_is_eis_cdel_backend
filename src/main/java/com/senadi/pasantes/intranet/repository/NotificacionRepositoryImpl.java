@@ -31,8 +31,13 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 	}
 
 	@Override
-	public void actualizar(Notificacion notificacion) {
-		this.entityManager.merge(notificacion);
+	public Integer actualizar(Notificacion notificacion) {
+		try {
+			this.entityManager.merge(notificacion);
+			return 1;
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
 	@Override
@@ -43,32 +48,22 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 
 	@Override
 	public List<Notificacion> buscarTodos() {
-		TypedQuery<Notificacion> myQuery=this.entityManager.createQuery(""
-				+ "select d from Notificacion d", Notificacion.class);
-	
+		TypedQuery<Notificacion> myQuery = this.entityManager.createQuery("" + "select d from Notificacion d",
+				Notificacion.class);
+
 		return myQuery.getResultList();
 	}
-	
-	
-	 public List<Notificacion> buscarPorfecha(LocalDateTime fechaActual) {
-		   String jpql = "SELECT d FROM Notificacion d " +
-                   "WHERE :fechaActual BETWEEN d.fechaInicio AND d.fechaFin " +
-                   "AND d.estado = 'A' " +
-                   "ORDER BY CASE " +
-                   "    WHEN d.importancia = 'alta' THEN 1 " +
-                   "    WHEN d.importancia = 'media' THEN 2 " +
-                   "    WHEN d.importancia = 'baja' THEN 3 " +
-                   "    ELSE 4 " +
-                   "END";
 
-	        TypedQuery<Notificacion> myQuery = this.entityManager.createQuery(jpql, Notificacion.class);
-	        myQuery.setParameter("fechaActual", fechaActual);
+	public List<Notificacion> buscarPorfecha(LocalDateTime fechaActual) {
+		String jpql = "SELECT d FROM Notificacion d " + "WHERE :fechaActual BETWEEN d.fechaInicio AND d.fechaFin "
+				+ "AND d.estado = 'A' " + "ORDER BY CASE " + "    WHEN d.importancia = 'alta' THEN 1 "
+				+ "    WHEN d.importancia = 'media' THEN 2 " + "    WHEN d.importancia = 'baja' THEN 3 " + "    ELSE 4 "
+				+ "END";
 
-	        return myQuery.getResultList();
-	    }
-	
+		TypedQuery<Notificacion> myQuery = this.entityManager.createQuery(jpql, Notificacion.class);
+		myQuery.setParameter("fechaActual", fechaActual);
 
-	
-	
+		return myQuery.getResultList();
+	}
 
 }

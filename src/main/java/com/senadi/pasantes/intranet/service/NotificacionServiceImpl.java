@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.senadi.pasantes.intranet.repository.INotificacionRepository;
 import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
-import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 import com.senadi.pasantes.intranet.service.to.LogTO;
@@ -31,13 +30,12 @@ public class NotificacionServiceImpl implements INotificacionService {
 
 	@Autowired
 	private INotificacionRepository iNotificacionRepo;
-	
+
 	@Autowired
 	private ILogService iLogService;
-	
+
 	@Autowired
 	private IUsuarioRepository iUsuarioRepository;
-
 
 	@Override
 	public void insertar(NotificacionTO notificacionTO) {
@@ -62,8 +60,41 @@ public class NotificacionServiceImpl implements INotificacionService {
 	}
 
 	@Override
-	public void actualizar(NotificacionTO notificacionTO) {
-		this.iNotificacionRepo.actualizar(this.convertirANotificacion(notificacionTO));
+	public Integer actualizar(NotificacionTO notificacionTO) {
+		var notificacionActualizar = this.iNotificacionRepo.buscarPorId(notificacionTO.getId());
+		notificacionActualizar.setEstado(notificacionTO.getEstado());
+		notificacionActualizar.setImportancia(notificacionTO.getImportancia());
+		notificacionActualizar.setFechaInicio(notificacionTO.getFechaInicio());
+		notificacionActualizar.setFechaFin(notificacionTO.getFechaFin());
+		notificacionActualizar.setUsuario(notificacionTO.getUsuario());
+
+		if (notificacionTO.getUrlImagen() != null) {
+			notificacionActualizar.setUrlImagen(notificacionTO.getUrlImagen());
+		}
+
+		Integer act = -1;
+		try {
+			// LOGS
+			LogTO logTO = new LogTO();
+			String accion = String.format(
+					"Modifico a partir de: [ntfc_id: %s, " + "ntfc_fecha_inicio: %s, " + "ntfc_fecha_fin: %s, "
+							+ "ntfc_estado: %s, " + "ntfc_importancia: %s]",
+					notificacionTO.getId(), notificacionTO.getFechaInicio(), notificacionTO.getFechaFin(),
+					notificacionTO.getEstado(), notificacionTO.getImportancia());
+
+			logTO.setFechaAccion(LocalDateTime.now());
+			logTO.setAccion(accion);
+			logTO.setUsuario(this.iUsuarioRepository.buscarPorId(notificacionTO.getId()));
+
+			this.iLogService.insertar(logTO);
+
+			act = this.iNotificacionRepo.actualizar(notificacionActualizar);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return act;
+
 	}
 
 	@Override
@@ -94,12 +125,10 @@ public class NotificacionServiceImpl implements INotificacionService {
 		try {
 			// LOGS
 			LogTO logTO = new LogTO();
-			String accion = String.format("Modifico a partir de: [ntfc_id: %s, " 
-					+ "ntfc_estado: %s, "
-					+ "ntfc_fecha_fin: %s, " 
-					+ "ntfc_fecha_inicio: %s, " 
-					+ "ntfc_importancia: %s " 
-					+ "]", img.getId(), img.getEstado(), img.getFechaFin(), img.getFechaInicio(), img.getImportancia());
+			String accion = String.format(
+					"Modifico a partir de: [ntfc_id: %s, " + "ntfc_estado: %s, " + "ntfc_fecha_fin: %s, "
+							+ "ntfc_fecha_inicio: %s, " + "ntfc_importancia: %s " + "]",
+					img.getId(), img.getEstado(), img.getFechaFin(), img.getFechaInicio(), img.getImportancia());
 
 			logTO.setFechaAccion(LocalDateTime.now());
 			logTO.setAccion(accion);

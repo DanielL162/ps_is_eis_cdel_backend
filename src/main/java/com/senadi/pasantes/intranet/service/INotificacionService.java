@@ -13,7 +13,7 @@ public interface INotificacionService {
 	
 	public List<NotificacionTO>  buscarTodos();
 
-	public void actualizar(NotificacionTO notificacionTO);
+	public Integer actualizar(NotificacionTO notificacionTO);
 
 	public void eliminar(Integer id);
 
