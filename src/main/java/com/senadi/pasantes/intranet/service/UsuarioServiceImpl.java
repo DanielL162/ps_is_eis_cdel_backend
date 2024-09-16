@@ -27,8 +27,19 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	private IUsuarioRepository iUsuarioRepo;
 
 	@Override
-	public void insertar(UsuarioTO usuarioTO) {
-		this.iUsuarioRepo.insertar(this.convertirAUsuario(usuarioTO));
+	public Integer insertar(UsuarioTO usuarioTO) {
+		if (usuarioTO.getCedula()!=null 
+				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula())==null){
+			
+			this.iUsuarioRepo.insertar(this.convertirAUsuario(usuarioTO));
+			if(this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula())!=null) {
+				return 1;
+			}
+		}else {
+			return -2;
+		}
+		
+		return 0;
 	}
 
 	@Override

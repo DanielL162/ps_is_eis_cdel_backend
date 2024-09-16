@@ -5,7 +5,7 @@ import com.senadi.pasantes.intranet.service.to.UsuarioTO;
 
 public interface IUsuarioService {
 
-	public void insertar(UsuarioTO usuarioTO);
+	public Integer insertar(UsuarioTO usuarioTO);
 
 	public UsuarioTO buscarPorId(Integer id);
 

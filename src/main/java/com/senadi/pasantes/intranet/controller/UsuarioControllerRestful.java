@@ -39,8 +39,8 @@ public class UsuarioControllerRestful {
 	// INSERTAR
 	// http://localhost:8086/API/v1.0/Intranet/Usuarios POST
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void insertar(@RequestBody UsuarioTO UsuarioTO) {
-		this.iUsuarioService.insertar(UsuarioTO);
+	public ResponseEntity<Integer> insertar(@RequestBody UsuarioTO UsuarioTO) {
+		return ResponseEntity.status(HttpStatus.OK).body(this.iUsuarioService.insertar(UsuarioTO));
 	}
 
 	// ACTUALIZAR
