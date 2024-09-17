@@ -17,8 +17,6 @@ public class PsIsEisCdelBackendApplication implements CommandLineRunner {
 	@Autowired
 	INotificacionService iNotificacionService;
 	
-	
-	
 	public static void main(String[] args) {
 		SpringApplication.run(PsIsEisCdelBackendApplication.class, args);
 	}
@@ -27,11 +25,9 @@ public class PsIsEisCdelBackendApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.out.println("Ok");
 		List<NotificacionTO> notificaciones= iNotificacionService.obtenerNotificaciones();
-		
 		for (NotificacionTO notificacion : notificaciones) {
 			System.out.println(notificacion);
 		}
-		
 	}
 
 }
