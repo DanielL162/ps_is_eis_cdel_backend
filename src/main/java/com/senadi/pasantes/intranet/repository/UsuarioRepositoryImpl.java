@@ -46,8 +46,15 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 				+ "from Usuario u where u.cedula=:datoCedula", UsuarioLoginDTO.class);
 		myQuery.setParameter("datoCedula", cedula);
 		
+		UsuarioLoginDTO ulDTO=null;
+		try {
+			ulDTO=myQuery.getSingleResult();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return myQuery.getSingleResult();
+		
+		return ulDTO;
 	}
 
 	@Override
