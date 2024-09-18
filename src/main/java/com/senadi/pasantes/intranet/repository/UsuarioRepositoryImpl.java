@@ -19,6 +19,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 
 	@Override
 	public void insertar(Usuario usuario) {
+		
 		this.entityManager.persist(usuario);
 	}
 
@@ -41,6 +42,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 
 	@Override
 	public UsuarioLoginDTO seleccionarPorCedulaUsuarioLoginDTO(String cedula) {
+		System.out.println("REPO USUARIO");
 		TypedQuery<UsuarioLoginDTO> myQuery=this.entityManager.createQuery(""
 				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO(u.id, u.cedula, u.password, u.rol) "
 				+ "from Usuario u where u.cedula=:datoCedula", UsuarioLoginDTO.class);
