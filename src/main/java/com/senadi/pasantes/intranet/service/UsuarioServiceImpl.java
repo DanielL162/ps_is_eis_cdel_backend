@@ -29,7 +29,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Override
 	public Integer insertar(UsuarioTO usuarioTO) {
 		if (usuarioTO.getCedula()!=null 
-				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula())==null){
+				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula())==null
+				&& usuarioTO.getEmail()!=null 
+				&& this.iUsuarioRepo.seleccionarPorCorreoUsuarioLoginDTO(usuarioTO.getEmail())==null){
 			
 			this.iUsuarioRepo.insertar(this.convertirAUsuario(usuarioTO));
 			if(this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula())!=null) {

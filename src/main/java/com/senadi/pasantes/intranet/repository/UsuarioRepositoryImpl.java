@@ -24,7 +24,12 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 
 	@Override
 	public Usuario buscarPorId(Integer id) {
-		return this.entityManager.find(Usuario.class, id);
+		try {
+			return this.entityManager.find(Usuario.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
@@ -46,8 +51,18 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 				+ "from Usuario u where u.cedula=:datoCedula", UsuarioLoginDTO.class);
 		myQuery.setParameter("datoCedula", cedula);
 		
+		UsuarioLoginDTO dto=null;
 		
-		return myQuery.getSingleResult();
+		try {
+			dto=myQuery.getSingleResult();
+
+			return dto;
+		} catch (Exception e) {
+			
+			//e.printStackTrace();
+		}
+		return dto;
+		
 	}
 
 	@Override
@@ -58,7 +73,17 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 		myQuery.setParameter("datoEmail", email);
 		
 		
-		return myQuery.getSingleResult();
+		UsuarioLoginDTO dto=null;
+		
+		try {
+			dto=myQuery.getSingleResult();
+
+			return dto;
+		} catch (Exception e) {
+			
+			//e.printStackTrace();
+		}
+		return dto;
 	}
 	
 	
