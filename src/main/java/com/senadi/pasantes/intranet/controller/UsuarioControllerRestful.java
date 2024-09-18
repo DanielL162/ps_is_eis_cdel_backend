@@ -40,7 +40,9 @@ public class UsuarioControllerRestful {
 	// http://localhost:8086/API/v1.0/Intranet/Usuarios POST
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> insertar(@RequestBody UsuarioTO UsuarioTO) {
-		return ResponseEntity.status(HttpStatus.OK).body(this.iUsuarioService.insertar(UsuarioTO));
+		Integer respuesta=this.iUsuarioService.insertar(UsuarioTO);
+		System.out.println("Esta les la respuesta de la bandera: "+respuesta);
+		return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 	}
 
 	// ACTUALIZAR

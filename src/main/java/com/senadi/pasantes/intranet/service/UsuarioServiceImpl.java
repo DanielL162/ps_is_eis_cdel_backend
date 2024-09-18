@@ -29,15 +29,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Override
 	public Integer insertar(UsuarioTO usuarioTO) {
-		System.out.println("*****************");
-		System.out.println(usuarioTO);
-		System.out.println("*****************");
 
 		if (usuarioTO.getCedula() != null
-				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) == null) {
+				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) == null
+				&& usuarioTO.getEmail() != null
+				&& this.iUsuarioRepo.seleccionarPorCorreoUsuarioLoginDTO(usuarioTO.getEmail()) == null) {
 
-			var contraseniaSinCifrar = usuarioTO.getPassword();
-			usuarioTO.setPassword(SeguridadContrasenia.hashearContrasena(contraseniaSinCifrar));
 			this.iUsuarioRepo.insertar(this.convertirAUsuario(usuarioTO));
 
 			if (this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) != null) {
