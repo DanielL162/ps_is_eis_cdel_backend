@@ -12,9 +12,11 @@ import com.senadi.pasantes.intranet.repository.IDocumentoRepository;
 import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
+import com.senadi.pasantes.intranet.service.to.DocumentoDTO_TO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoNormativaTO;
@@ -32,6 +34,10 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 	private Documento convertirADocumento(DocumentoTO documentoTO) {
 		return modelMapper.map(documentoTO, Documento.class);
+	}
+
+	private DocumentoDTO_TO convertirADocumentoDTO_TO(DocumentoDTO documentoDTO) {
+		return modelMapper.map(documentoDTO, DocumentoDTO_TO.class);
 	}
 
 	private DocumentoListaTO documentoListaDTOToDocumentoListaTO(DocumentoListaDTO documentoListaDTO) {
@@ -67,11 +73,10 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 	@Autowired
 	private ILogService iLogService;
-	
-	
+
 	@Autowired
 	private IUsuarioService iUsuarioService;
-	
+
 	@Autowired
 	private IUsuarioRepository iUsuarioRepository;
 
@@ -96,6 +101,16 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	}
 
 	@Override
+	public List<DocumentoDTO_TO> consultarTodoDTO() {
+		List<DocumentoDTO> pdto = this.iDocumentoRepo.consultarTodoDTO();
+		List<DocumentoDTO_TO> lsdto_to = new ArrayList<>();
+		for (DocumentoDTO documentoDTO : pdto) {
+			lsdto_to.add(this.convertirADocumentoDTO_TO(documentoDTO));
+		}
+		return lsdto_to;
+	}
+
+	@Override
 	public Integer actualizar(DocumentoTO documentoTO) {
 		// En ambos casos se respeta la fecha de creacion.
 		// Si no se altera el documento y el tipo de documento:
@@ -111,25 +126,21 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			docActualizar.setTipo(documentoTO.getTipo());
 			docActualizar.setEstado(documentoTO.getEstado());
 		}
-    
+
 		Integer act = -1;
 		try {
 			// LOGS
 			LogTO logTO = new LogTO();
 			String accion = String.format(
-					"Modifico a partir de: [docu_id: %s, " + 
-							"docu_categoria: %s, " + 
-							"docu_nombre: %s, "+ 
-							"docu_tipo: %s, " + 
-							"docu_fecha_actualizacion: %s]",
-					documentoTO.getId(), documentoTO.getCategoria(), documentoTO.getNombre(),
-					documentoTO.getTipo(),
+					"Modifico a partir de: [docu_id: %s, " + "docu_categoria: %s, " + "docu_nombre: %s, "
+							+ "docu_tipo: %s, " + "docu_fecha_actualizacion: %s]",
+					documentoTO.getId(), documentoTO.getCategoria(), documentoTO.getNombre(), documentoTO.getTipo(),
 					documentoTO.getFechaActualizacion());
 
 			logTO.setFechaAccion(LocalDateTime.now());
 			logTO.setAccion(accion);
 			logTO.setUsuario(this.iUsuarioRepository.buscarPorId(documentoTO.getId()));
-			
+
 			this.iLogService.insertar(logTO);
 
 			act = this.iDocumentoRepo.actualizar(docActualizar);
@@ -138,7 +149,6 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			e.printStackTrace();
 		}
 		return act;
-
 
 	}
 
@@ -150,33 +160,32 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	@Override
 	public Integer cambiarEstado(Integer id, Integer idAdmin) {
 		Documento docu = this.iDocumentoRepo.buscarPorId(id);
-		System.out.println("DocumentoServiceImpl>cambiarEstado>docu: "+docu);
+		System.out.println("DocumentoServiceImpl>cambiarEstado>docu: " + docu);
 		try {
-			
+
 			// LOGS
 			LogTO logTO = new LogTO();
-			String accion = String.format(
-					"Modifico a partir de: [docu_id: %s, " + "docu_estado: %s]",
-					docu.getId(), docu.getEstado());
+			String accion = String.format("Modifico a partir de: [docu_id: %s, " + "docu_estado: %s]", docu.getId(),
+					docu.getEstado());
 
 			logTO.setFechaAccion(LocalDateTime.now());
 			logTO.setAccion(accion);
-			
-			Usuario usuario= this.iUsuarioRepository.buscarPorId(idAdmin);
-			
+
+			Usuario usuario = this.iUsuarioRepository.buscarPorId(idAdmin);
+
 			logTO.setUsuario(usuario);
 			usuario.setLogs(null);
-			
+
 			this.iLogService.insertar(logTO);
-			
+
 			docu.setUsuario(usuario);
-			
+
 			if (docu.getEstado().equals("A")) {
 				docu.setEstado("I");
 			} else if (docu.getEstado().equals("I")) {
 				docu.setEstado("A");
 			}
-			
+
 			this.iDocumentoRepo.actualizar(docu);
 
 			System.out.println("SE ACTUALIZAO");
