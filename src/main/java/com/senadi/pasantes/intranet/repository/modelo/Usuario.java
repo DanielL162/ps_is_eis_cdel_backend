@@ -14,6 +14,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
+/**
+ * 
+ */
+/**
+ * 
+ */
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -44,6 +50,9 @@ public class Usuario {
 
 	@Column(name = "user_rol")
 	private String rol;
+	
+	@Column(name = "user_nivel_flujo")
+	private String nivelFlujo;
 
 	@Column(name = "user_departamento")
 	private String departamento;
@@ -125,6 +134,16 @@ public class Usuario {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
+	
+	
+
+	public String getNivelFlujo() {
+		return nivelFlujo;
+	}
+
+	public void setNivelFlujo(String nivelFlujo) {
+		this.nivelFlujo = nivelFlujo;
+	}
 
 	public String getDepartamento() {
 		return departamento;
@@ -156,6 +175,14 @@ public class Usuario {
 
 	public void setFormularios(List<Formulario> formularios) {
 		this.formularios = formularios;
+	}
+
+	public List<Documento> getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(List<Documento> documentos) {
+		this.documentos = documentos;
 	}
 	
 	

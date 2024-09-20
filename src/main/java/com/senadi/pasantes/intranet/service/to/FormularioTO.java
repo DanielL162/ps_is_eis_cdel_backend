@@ -14,6 +14,7 @@ public class FormularioTO implements Serializable {
 	private LocalDateTime fechaTratamiento;
 	private String estado;
 	private Integer idDestinatario;
+	private String contenido;
 
 	// Relaciones
 	private Usuario emisor;
@@ -66,5 +67,19 @@ public class FormularioTO implements Serializable {
 	public void setIdDestinatario(Integer idDestinatario) {
 		this.idDestinatario = idDestinatario;
 	}
+
+	public String getContenido() {
+		return contenido;
+	}
+
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 
 }

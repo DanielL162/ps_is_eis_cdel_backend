@@ -30,18 +30,19 @@ public class Formulario {
 
 	@Column(name = "form_estado")
 	private String estado;
-	
+
 	@Column(name = "form_id_destinatario")
 	private Integer idDestinatario;
 
-	//Relaciones
+	@Column(name = "form_contenido", columnDefinition = "jsonb")
+	private String contenido;
+
+	// Relaciones
 	@ManyToOne()
 	@JoinColumn(name = "form_id_emisor")
 	private Usuario emisor;
 
-
-
-	//Get y set
+	// Get y set
 	public Integer getId() {
 		return id;
 	}
@@ -89,5 +90,15 @@ public class Formulario {
 	public void setIdDestinatario(Integer idDestinatario) {
 		this.idDestinatario = idDestinatario;
 	}
+
+	public String getContenido() {
+		return contenido;
+	}
+
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
+	
+	
 
 }
