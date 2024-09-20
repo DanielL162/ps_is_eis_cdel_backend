@@ -42,6 +42,7 @@ public class DocumentoControllerRestful {
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<DocumentoTO> buscarPorId(@PathVariable Integer id) {
 		var DocumentoTo = this.iDocumentoService.buscarPorId(id);
+		System.out.println(DocumentoTo);
 		return ResponseEntity.status(HttpStatus.OK).body(DocumentoTo);
 	}
 
@@ -54,7 +55,7 @@ public class DocumentoControllerRestful {
 	}
 
 	// CONSULTAR TODOS DTO
-	// http://localhost:8086/API/v1.0/Intranet/Documentos/todosDTO GET
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/todosDTO  GET
 	@GetMapping(path = "/todosDTO", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoDTO_TO>> consultarTodosDTO() {
 		var ls = this.iDocumentoService.consultarTodoDTO();
