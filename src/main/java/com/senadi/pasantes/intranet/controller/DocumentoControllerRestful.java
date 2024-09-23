@@ -1,9 +1,13 @@
 package com.senadi.pasantes.intranet.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senadi.pasantes.intranet.service.IDocumentoService;
+import com.senadi.pasantes.intranet.service.to.DocumentoDTO_TO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoNormativaTO;
@@ -37,6 +42,7 @@ public class DocumentoControllerRestful {
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<DocumentoTO> buscarPorId(@PathVariable Integer id) {
 		var DocumentoTo = this.iDocumentoService.buscarPorId(id);
+		System.out.println(DocumentoTo);
 		return ResponseEntity.status(HttpStatus.OK).body(DocumentoTo);
 	}
 
@@ -46,6 +52,18 @@ public class DocumentoControllerRestful {
 	public ResponseEntity<List<DocumentoListaTO>> buscarTodos() {
 		List<DocumentoListaTO> documentosListaTO = this.iDocumentoService.buscarTodosDocumentoListaTO();
 		return ResponseEntity.status(HttpStatus.OK).body(documentosListaTO);
+	}
+
+	// CONSULTAR TODOS DTO
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/todosDTO  GET
+	@GetMapping(path = "/todosDTO", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<DocumentoDTO_TO>> consultarTodosDTO() {
+		var ls = this.iDocumentoService.consultarTodoDTO();
+		for (DocumentoDTO_TO docu : ls) {
+			Link link = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorId(docu.getId())).withRel("enlaces");
+			docu.add(link);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(ls);
 	}
 
 	// BUSCAR NORMATIVAS TO
@@ -106,13 +124,13 @@ public class DocumentoControllerRestful {
 	public Integer eliminar(@PathVariable Integer id) {
 		return this.iDocumentoService.eliminar(id);
 	}
-	
+
 	// CAMBIAR ESTADO
 	// http://localhost:8086/API/v1.0/Intranet/Documentos/6/1 POST
-	@PostMapping(path = "/{idDocu}/{idAdmin}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> cambiarEstado(@PathVariable Integer idDocu,@PathVariable Integer idAdmin) {
-		
+	@PostMapping(path = "/{idDocu}/{idAdmin}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> cambiarEstado(@PathVariable Integer idDocu, @PathVariable Integer idAdmin) {
+
 		return ResponseEntity.status(HttpStatus.OK).body(this.iDocumentoService.cambiarEstado(idDocu, idAdmin));
-		
+
 	}
 }

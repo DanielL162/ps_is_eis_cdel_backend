@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
@@ -29,6 +31,13 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	@Override
 	public Documento buscarPorId(Integer id) {
 		return this.entityManager.find(Documento.class, id);
+	}
+
+	@Override
+	public List<DocumentoDTO> consultarTodoDTO() {
+		Query q = this.entityManager.createQuery(
+				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO(d.id, d.nombre, d.categoria, d.estado) FROM Documento d");
+		return q.getResultList();
 	}
 
 	@Override
