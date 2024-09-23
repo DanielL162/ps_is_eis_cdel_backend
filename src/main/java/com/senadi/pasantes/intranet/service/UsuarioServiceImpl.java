@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 import com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO;
+import com.senadi.pasantes.intranet.seguridad.SeguridadContrasenia;
 import com.senadi.pasantes.intranet.service.to.UsuarioLoginTO;
 import com.senadi.pasantes.intranet.service.to.UsuarioTO;
 
@@ -28,19 +29,26 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Override
 	public Integer insertar(UsuarioTO usuarioTO) {
-		if (usuarioTO.getCedula()!=null 
-				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula())==null
-				&& usuarioTO.getEmail()!=null 
-				&& this.iUsuarioRepo.seleccionarPorCorreoUsuarioLoginDTO(usuarioTO.getEmail())==null){
-			
+
+		if (usuarioTO.getCedula() != null
+				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) == null
+				&& usuarioTO.getEmail() != null
+				&& this.iUsuarioRepo.seleccionarPorCorreoUsuarioLoginDTO(usuarioTO.getEmail()) == null) {
+
 			this.iUsuarioRepo.insertar(this.convertirAUsuario(usuarioTO));
-			if(this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula())!=null) {
+
+			if (this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) != null) {
 				return 1;
 			}
-		}else {
+		} else {
 			return -2;
 		}
-		
+
+//		var contraseniaSinCifrar = usuarioTO.getPassword();
+//		usuarioTO.setPassword(SeguridadContrasenia.hashearContrasena(contraseniaSinCifrar));
+//		this.iUsuarioRepo.insertar(this.convertirAUsuario(usuarioTO));
+//
+
 		return 0;
 	}
 
@@ -65,7 +73,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			UsuarioLoginDTO usuarioLoginDTO = this.iUsuarioRepo
 					.seleccionarPorCedulaUsuarioLoginDTO(usuarioLoginTO.getCedula());
 
-			if (usuarioLoginTO.getPassword().equals(usuarioLoginDTO.getPassword())) {
+			if (SeguridadContrasenia.verificarContrasena(usuarioLoginTO.getPassword(), usuarioLoginTO.getPassword())) {
 				System.out.println("La contraseña coincide");
 				if (usuarioLoginTO.getRol().equals(usuarioLoginDTO.getRol())) {
 					System.out.println("El rol es correcto");

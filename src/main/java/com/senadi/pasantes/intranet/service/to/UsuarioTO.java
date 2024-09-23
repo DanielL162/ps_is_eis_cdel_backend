@@ -133,4 +133,11 @@ public class UsuarioTO implements Serializable {
 		this.documentos = documentos;
 	}
 
+	@Override
+	public String toString() {
+		return "UsuarioTO [id=" + id + ", cedula=" + cedula + ", identificacionSenadi=" + identificacionSenadi
+				+ ", nombres=" + nombres + ", apellidos=" + apellidos + ", password=" + password + ", email=" + email
+				+ ", rol=" + rol + ", departamento=" + departamento + "]";
+	}
+
 }
