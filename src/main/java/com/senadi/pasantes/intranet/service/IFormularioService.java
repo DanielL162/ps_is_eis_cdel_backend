@@ -1,12 +1,15 @@
 package com.senadi.pasantes.intranet.service;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senadi.pasantes.intranet.service.to.FormularioTO;
 
 public interface IFormularioService {
 
-	public void insertar(FormularioTO formularioTO);
+	public void insertar(FormularioTO formularioTO) throws JsonProcessingException;
 
-	public FormularioTO buscarPorId(Integer id);
+	public FormularioTO buscarPorId(Integer id) throws JsonProcessingException;
 
 	public void actualizar(FormularioTO formularioTO);
 

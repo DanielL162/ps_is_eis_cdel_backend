@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senadi.pasantes.intranet.service.IFormularioService;
 import com.senadi.pasantes.intranet.service.to.FormularioTO;
 
@@ -28,7 +29,7 @@ public class FormularioControllerRestful {
 	// BUSCAR POR ID
 	// http://localhost:8086/API/v1.0/Intranet/Formularios/{id} GET
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<FormularioTO> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<FormularioTO> buscarPorId(@PathVariable Integer id) throws JsonProcessingException {
 		var FormularioTo = this.iFormularioService.buscarPorId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(FormularioTo);
 	}
@@ -36,7 +37,7 @@ public class FormularioControllerRestful {
 	// INSERTAR
 	// http://localhost:8086/API/v1.0/Intranet/Formularios POST
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void insertar(@RequestBody FormularioTO FormularioTO) {
+	public void insertar(@RequestBody FormularioTO FormularioTO) throws JsonProcessingException {
 		this.iFormularioService.insertar(FormularioTO);
 	}
 

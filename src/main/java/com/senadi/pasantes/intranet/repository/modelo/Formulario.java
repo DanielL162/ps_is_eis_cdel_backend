@@ -1,6 +1,12 @@
 package com.senadi.pasantes.intranet.repository.modelo;
 
 import java.time.LocalDateTime;
+import java.util.Map;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,6 +40,8 @@ public class Formulario {
 	@Column(name = "form_id_destinatario")
 	private Integer idDestinatario;
 
+	@JdbcTypeCode(SqlTypes.JSON)
+	//el tipo de dato es JSON, realica la conversión adecuada entre el tipo Java (en este caso, String) y el tipo jsonb de PostgreSQL.
 	@Column(name = "form_contenido", columnDefinition = "jsonb")
 	private String contenido;
 
@@ -98,6 +106,10 @@ public class Formulario {
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
 	}
+
+
+
+
 	
 	
 

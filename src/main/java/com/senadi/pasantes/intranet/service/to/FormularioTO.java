@@ -2,6 +2,7 @@ package com.senadi.pasantes.intranet.service.to;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 
@@ -14,7 +15,7 @@ public class FormularioTO implements Serializable {
 	private LocalDateTime fechaTratamiento;
 	private String estado;
 	private Integer idDestinatario;
-	private String contenido;
+	private Map<String, Object> contenido;
 
 	// Relaciones
 	private Usuario emisor;
@@ -68,11 +69,11 @@ public class FormularioTO implements Serializable {
 		this.idDestinatario = idDestinatario;
 	}
 
-	public String getContenido() {
+	public Map<String, Object> getContenido() {
 		return contenido;
 	}
 
-	public void setContenido(String contenido) {
+	public void setContenido(Map<String, Object> contenido) {
 		this.contenido = contenido;
 	}
 
