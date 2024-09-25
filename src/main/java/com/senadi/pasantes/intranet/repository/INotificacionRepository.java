@@ -4,14 +4,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
+import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO;
 
 public interface INotificacionRepository {
-	
+
 	public void insertar(Notificacion notificacion);
 
 	public Notificacion buscarPorId(Integer id);
-	
+
 	public List<Notificacion> buscarTodos();
+
+	public List<NotificacionDTO> consultarTodoDTO();
 
 	public Integer actualizar(Notificacion notificacion);
 

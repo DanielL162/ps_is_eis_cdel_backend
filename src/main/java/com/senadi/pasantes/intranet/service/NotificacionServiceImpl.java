@@ -12,7 +12,9 @@ import com.senadi.pasantes.intranet.repository.INotificacionRepository;
 import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
+import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO;
 import com.senadi.pasantes.intranet.service.to.LogTO;
+import com.senadi.pasantes.intranet.service.to.NotificacionDTO_TO;
 import com.senadi.pasantes.intranet.service.to.NotificacionTO;
 
 @Service
@@ -26,6 +28,10 @@ public class NotificacionServiceImpl implements INotificacionService {
 
 	private Notificacion convertirANotificacion(NotificacionTO notificacionTO) {
 		return modelMapper.map(notificacionTO, Notificacion.class);
+	}
+
+	private NotificacionDTO_TO convertirANotificacionDTO_TO(NotificacionDTO notificacionDTO) {
+		return modelMapper.map(notificacionDTO, NotificacionDTO_TO.class);
 	}
 
 	@Autowired
@@ -57,6 +63,16 @@ public class NotificacionServiceImpl implements INotificacionService {
 		}
 
 		return notificacionTOs;
+	}
+
+	@Override
+	public List<NotificacionDTO_TO> consultarTodoDTO() {
+		List<NotificacionDTO> pdto = this.iNotificacionRepo.consultarTodoDTO();
+		List<NotificacionDTO_TO> lsdto_to = new ArrayList<>();
+		for (NotificacionDTO notificacionDTO : pdto) {
+			lsdto_to.add(this.convertirANotificacionDTO_TO(notificacionDTO));
+		}
+		return lsdto_to;
 	}
 
 	@Override
