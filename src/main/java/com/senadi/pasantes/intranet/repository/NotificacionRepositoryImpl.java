@@ -6,10 +6,11 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
-import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
@@ -28,6 +29,13 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 	@Override
 	public Notificacion buscarPorId(Integer id) {
 		return this.entityManager.find(Notificacion.class, id);
+	}
+
+	@Override
+	public List<NotificacionDTO> consultarTodoDTO() {
+		Query q = this.entityManager.createQuery(
+				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO(n.id, n.fechaInicio, n.fechaFin, n.importancia, n.estado) FROM Notificacion n");
+		return q.getResultList();
 	}
 
 	@Override
