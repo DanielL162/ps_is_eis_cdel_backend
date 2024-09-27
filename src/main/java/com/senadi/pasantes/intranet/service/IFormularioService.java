@@ -15,4 +15,12 @@ public interface IFormularioService {
 
 	public void eliminar(Integer id);
 
+	void insertarHATEOAS(FormularioTO formularioTO) throws JsonProcessingException;
+
+	FormularioTO buscarPorIdHATEOAS(Integer id) throws JsonProcessingException;
+
+	void actualizarHATEOAS(FormularioTO formularioTO);
+
+	void eliminarHATEOAS(Integer id);
+
 }

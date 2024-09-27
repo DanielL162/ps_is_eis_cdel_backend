@@ -80,5 +80,56 @@ public class FormularioServiceImpl implements IFormularioService {
 	}
 	
 	
+	//SERVICIOS PARA FormularioTO_HATEOAS 
+	
+	@Override
+	public void insertarHATEOAS(FormularioTO formularioTO) throws JsonProcessingException {
+		 // Convertir el Map en una cadena JSON
+        String jsonContenido = objectMapper.writeValueAsString(formularioTO.getContenido());
+        
+        Formulario formulario= new Formulario();
+        formulario.setEmisor(formularioTO.getEmisor());
+        formulario.setEstado(formularioTO.getEstado());
+        formulario.setFechaTratamiento(formularioTO.getFechaTratamiento());
+        formulario.setFechaEmision(formularioTO.getFechaEmision());
+        formulario.setIdDestinatario(formularioTO.getIdDestinatario());
+        formulario.setContenido(jsonContenido);
+        
+        this.iFormularioRepo.insertar(formulario);
+        
+	}
 
+	@Override
+	public FormularioTO buscarPorIdHATEOAS(Integer id) throws JsonProcessingException {
+		Formulario formulario=this.iFormularioRepo.buscarPorId(id);
+		if (formulario == null) {
+	        return null;  // Maneja el caso en que no se encuentra el formulario
+	    }
+	    
+	    // Convertir el JSON almacenado en la columna 'contenido' a un Map o la estructura deseada
+	    Map<String, Object> contenidoMap = objectMapper.readValue(formulario.getContenido(), new TypeReference<Map<String, Object>>() {});
+
+	    // Crear el objeto FormularioTO a partir del resultado
+	    FormularioTO formularioTO = new FormularioTO();
+	    formularioTO.setEmisor(formulario.getEmisor());
+	    formularioTO.setEstado(formulario.getEstado());
+	    formularioTO.setFechaTratamiento(formulario.getFechaTratamiento());
+	    formularioTO.setFechaEmision(formulario.getFechaEmision());
+	    formularioTO.setIdDestinatario(formulario.getIdDestinatario());
+	    formularioTO.setContenido(contenidoMap);  // Asignar el contenido convertido
+
+	    return formularioTO;
+	}
+	
+	@Override
+	public void actualizarHATEOAS(FormularioTO formularioTO) {
+		this.iFormularioRepo.actualizar(this.convertirAFormulario(formularioTO));
+	}
+	
+	@Override
+	public void eliminarHATEOAS(Integer id) {
+		this.iFormularioRepo.eliminar(id);
+	}
+	
+	
 }
