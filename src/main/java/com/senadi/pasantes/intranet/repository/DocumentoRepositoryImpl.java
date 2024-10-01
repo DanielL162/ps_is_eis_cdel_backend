@@ -8,6 +8,7 @@ import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.FormatoPlantillaDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -81,5 +82,36 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 
 		return myQuery.getResultList();
 	}
+	
+	
+	public  List<FormatoPlantillaDTO> consultarFormatoPlantillaDTO(){
+		TypedQuery<FormatoPlantillaDTO> myQuery = this.entityManager.createQuery(""
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.FormatoPlantillaDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.documento, d.tipo, d.categoria) "
+				+ "from Documento d " + "where d.estado='A' and (d.categoria='formato' or d.categoria='plantilla')",
+				FormatoPlantillaDTO.class);
+
+		return myQuery.getResultList();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

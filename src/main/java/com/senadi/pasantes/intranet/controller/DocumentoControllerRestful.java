@@ -23,6 +23,7 @@ import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoNormativaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoTO;
+import com.senadi.pasantes.intranet.service.to.FormatoPlantillaTO;
 
 @CrossOrigin
 @RestController
@@ -57,11 +58,19 @@ public class DocumentoControllerRestful {
 	}
 
 	// BUSCAR INSTRUCTIVOS TO
-	// http://localhost:8086/API/v1.0/Intranet/Documentos GET
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/instructivos GET
 	@GetMapping(path = "/instructivos", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoInstructivoTO>> buscarInstructivosTO() {
 		List<DocumentoInstructivoTO> documentoInstructivoTOs = this.iDocumentoService.buscarInstructivosTO();
 		return ResponseEntity.status(HttpStatus.OK).body(documentoInstructivoTOs);
+	}
+	
+	// BUSCAR FORMATOS PLANTILLAS TO
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/formatosPlantillas GET
+	@GetMapping(path = "/formatosPlantillas", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<FormatoPlantillaTO>> buscarFormatoPlantillas() {
+		List<FormatoPlantillaTO> formatoPlantillaTOs = this.iDocumentoService.buscarFormatoPlantillaTO();
+		return ResponseEntity.status(HttpStatus.OK).body(formatoPlantillaTOs);
 	}
 
 	// BUSCAR POR ID

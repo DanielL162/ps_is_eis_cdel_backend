@@ -15,10 +15,12 @@ import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.FormatoPlantillaDTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoNormativaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoTO;
+import com.senadi.pasantes.intranet.service.to.FormatoPlantillaTO;
 import com.senadi.pasantes.intranet.service.to.LogTO;
 
 @Service
@@ -61,6 +63,18 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			DocumentoInstructivoTO documentoInstructivoTO) {
 		return modelMapper.map(documentoInstructivoTO, DocumentoInstructivoDTO.class);
 	}
+	
+	private FormatoPlantillaTO formatoPlantillaDTOToFormatoPlantillaTO(
+			FormatoPlantillaDTO formatoPlantillaDTO) {
+		return modelMapper.map(formatoPlantillaDTO, FormatoPlantillaTO.class);
+	}
+
+	private FormatoPlantillaDTO formatoPlantillaTOToFormatoPlantillaDTO(FormatoPlantillaTO formatoPlantillaTO) {
+	   
+	    return modelMapper.map(formatoPlantillaTO, FormatoPlantillaDTO.class);
+	}
+
+	
 
 	@Autowired
 	private IDocumentoRepository iDocumentoRepo;
@@ -224,6 +238,19 @@ public class DocumentoServiceImpl implements IDocumentoService {
 		}
 
 		return documentoInstructivoTOs;
+	}
+
+	@Override
+	public List<FormatoPlantillaTO> buscarFormatoPlantillaTO() {
+		// TODO Auto-generated method stub
+		List<FormatoPlantillaDTO> formatoPlantillaDTOs= this.iDocumentoRepo.consultarFormatoPlantillaDTO();
+		List<FormatoPlantillaTO> formatoPlantillaTOs= new ArrayList<>();
+		
+		for (FormatoPlantillaDTO formPlantDTO : formatoPlantillaDTOs) {
+			formatoPlantillaTOs.add(this.formatoPlantillaDTOToFormatoPlantillaTO(formPlantDTO));
+		}
+		
+		return formatoPlantillaTOs;
 	}
 
 }
