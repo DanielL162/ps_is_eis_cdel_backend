@@ -7,6 +7,7 @@ import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.FormatoPlantillaDTO;
 
 public interface IDocumentoRepository {
 
@@ -25,5 +26,7 @@ public interface IDocumentoRepository {
 	public List<DocumentoNormativaDTO> consultarNormativasDTO();
 
 	public List<DocumentoInstructivoDTO> consultarInstructivosDTO();
+	
+	public  List<FormatoPlantillaDTO> consultarFormatoPlantillaDTO();
 
 }
