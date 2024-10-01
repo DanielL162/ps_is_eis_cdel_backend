@@ -16,6 +16,8 @@ public interface IDocumentoService {
 
 	public List<DocumentoDTO_TO> consultarTodoDTO();
 
+	public String buscarPorIdSoloDocumento(Integer id);
+
 	public Integer actualizar(DocumentoTO documentoTO);
 
 	public Integer cambiarEstado(Integer id, Integer idAdmin);

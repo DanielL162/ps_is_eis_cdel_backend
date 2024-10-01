@@ -2,8 +2,6 @@ package com.senadi.pasantes.intranet.repository.modelo;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
 	@SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario", allocationSize = 1)
@@ -29,7 +27,7 @@ public class Usuario {
 
 	@Column(name = "user_identificacion_senadi")
 	private String identificacionSenadi;
-	
+
 	@Column(name = "user_nombres")
 	private String nombres;
 
@@ -47,21 +45,21 @@ public class Usuario {
 
 	@Column(name = "user_departamento")
 	private String departamento;
-	
-	//Relaciones
-	@OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY)
+
+	// Relaciones
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private List<Notificacion> notificaciones;
-	
+
 	@OneToMany(mappedBy = "usuario")
 	private List<Log> logs;
-	
+
 	@OneToMany(mappedBy = "emisor")
 	private List<Formulario> formularios;
 
-	@OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private List<Documento> documentos;
-	
-	//Get y set
+
+	// Get y set
 	public Integer getId() {
 		return id;
 	}
@@ -157,7 +155,5 @@ public class Usuario {
 	public void setFormularios(List<Formulario> formularios) {
 		this.formularios = formularios;
 	}
-	
-	
-	
+
 }

@@ -55,15 +55,28 @@ public class DocumentoControllerRestful {
 	}
 
 	// CONSULTAR TODOS DTO
-	// http://localhost:8086/API/v1.0/Intranet/Documentos/todosDTO  GET
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/todosDTO GET
 	@GetMapping(path = "/todosDTO", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoDTO_TO>> consultarTodosDTO() {
 		var ls = this.iDocumentoService.consultarTodoDTO();
 		for (DocumentoDTO_TO docu : ls) {
 			Link link = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorId(docu.getId())).withRel("enlaces");
 			docu.add(link);
+
+			Link linkVer = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorIdSoloDocumento(docu.getId()))
+					.withRel("verSoloDoc");
+			docu.add(linkVer);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(ls);
+	}
+
+	// BUSCAR POR ID
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/doc/{id} GET
+	@GetMapping(path = "/doc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> buscarPorIdSoloDocumento(@PathVariable Integer id) {
+		var doc = this.iDocumentoService.buscarPorIdSoloDocumento(id);
+		System.out.println(doc);
+		return (ResponseEntity<String>) ResponseEntity.status(HttpStatus.OK).body(doc);
 	}
 
 	// BUSCAR NORMATIVAS TO

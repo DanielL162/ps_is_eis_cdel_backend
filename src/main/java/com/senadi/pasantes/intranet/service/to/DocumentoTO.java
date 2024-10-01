@@ -18,7 +18,7 @@ public class DocumentoTO implements Serializable {
 	private String documento;
 	private String documentoURL;
 	private String tipo;
-	private String estado; //nombre, categoria, fechaActualizacion, docuemnto, tipo
+	private String estado; // nombre, categoria, fechaActualizacion, docuemnto, tipo
 
 	// Relaciones
 	@JsonIgnore
@@ -107,9 +107,10 @@ public class DocumentoTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Documento [id=" + id + ", nombre=" + nombre + ", categoria=" + categoria + ", fechaCreacion="
+		return "DocumentoTO [id=" + id + ", nombre=" + nombre + ", categoria=" + categoria + ", fechaCreacion="
 				+ fechaCreacion + ", fechaActualizacion=" + fechaActualizacion + ", documento=" + documento
-				+ ", documentoURL=" + documentoURL + ", tipo=" + tipo + ", estado=" + estado + "]";
+				+ ", documentoURL=" + documentoURL + ", tipo=" + tipo + ", estado=" + estado + ", usuario=" + usuario
+				+ "]";
 	}
 
 }

@@ -41,6 +41,13 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	}
 
 	@Override
+	public String buscarPorIdSoloDocumento(Integer id) {
+		Query q = this.entityManager.createQuery("SELECT d.documento FROM Documento d WHERE d.id = :id");
+		q.setParameter("id", id);
+		return (String) q.getSingleResult();
+	}
+
+	@Override
 	public Integer actualizar(Documento documento) {
 		try {
 			this.entityManager.merge(documento);

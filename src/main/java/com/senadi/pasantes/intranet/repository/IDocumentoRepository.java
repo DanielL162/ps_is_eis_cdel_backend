@@ -16,6 +16,8 @@ public interface IDocumentoRepository {
 
 	public List<DocumentoDTO> consultarTodoDTO();
 
+	public String buscarPorIdSoloDocumento(Integer id);
+
 	public Integer actualizar(Documento documento);
 
 	public Integer eliminar(Integer id);

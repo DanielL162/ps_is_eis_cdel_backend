@@ -82,6 +82,7 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 	@Override
 	public void insertar(DocumentoTO documentoTO) {
+		System.out.println("docTO" + documentoTO);
 		this.iDocumentoRepo.insertar(this.convertirADocumento(documentoTO));
 
 		// LOGS
@@ -108,6 +109,11 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			lsdto_to.add(this.convertirADocumentoDTO_TO(documentoDTO));
 		}
 		return lsdto_to;
+	}
+
+	@Override
+	public String buscarPorIdSoloDocumento(Integer id) {
+		return this.iDocumentoRepo.buscarPorIdSoloDocumento(id);
 	}
 
 	@Override
