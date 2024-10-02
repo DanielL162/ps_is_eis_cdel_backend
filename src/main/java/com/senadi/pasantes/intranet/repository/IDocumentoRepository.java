@@ -3,6 +3,7 @@ package com.senadi.pasantes.intranet.repository;
 import java.util.List;
 
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
@@ -16,7 +17,7 @@ public interface IDocumentoRepository {
 
 	public List<DocumentoDTO> consultarTodoDTO();
 
-	public String buscarPorIdSoloDocumento(Integer id);
+	public DocumentoArchivoDTO buscarPorIdSoloDocumento(Integer id);
 
 	public Integer actualizar(Documento documento);
 

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.service.IDocumentoService;
 import com.senadi.pasantes.intranet.service.to.DocumentoDTO_TO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
@@ -73,10 +74,10 @@ public class DocumentoControllerRestful {
 	// BUSCAR POR ID
 	// http://localhost:8086/API/v1.0/Intranet/Documentos/doc/{id} GET
 	@GetMapping(path = "/doc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> buscarPorIdSoloDocumento(@PathVariable Integer id) {
+	public ResponseEntity<DocumentoArchivoDTO> buscarPorIdSoloDocumento(@PathVariable Integer id) {
 		var doc = this.iDocumentoService.buscarPorIdSoloDocumento(id);
 		System.out.println(doc);
-		return (ResponseEntity<String>) ResponseEntity.status(HttpStatus.OK).body(doc);
+		return ResponseEntity.status(HttpStatus.OK).body(doc);
 	}
 
 	// BUSCAR NORMATIVAS TO
