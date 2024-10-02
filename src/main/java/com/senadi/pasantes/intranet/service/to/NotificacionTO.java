@@ -18,7 +18,6 @@ public class NotificacionTO implements Serializable {
 	private String estado;
 
 	// Relaciones
-	@JsonIgnore
 	private Usuario usuario;
 
 	// Get y set

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
 import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO;
 
 public interface INotificacionRepository {
 
@@ -15,6 +16,8 @@ public interface INotificacionRepository {
 	public List<Notificacion> buscarTodos();
 
 	public List<NotificacionDTO> consultarTodoDTO();
+
+	public NotificacionImagenDTO buscarPorIdSoloImagen(Integer id);
 
 	public Integer actualizar(Notificacion notificacion);
 

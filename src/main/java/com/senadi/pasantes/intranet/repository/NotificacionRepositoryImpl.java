@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
 import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -36,6 +37,14 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 		Query q = this.entityManager.createQuery(
 				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO(n.id, n.fechaInicio, n.fechaFin, n.importancia, n.estado) FROM Notificacion n");
 		return q.getResultList();
+	}
+
+	@Override
+	public NotificacionImagenDTO buscarPorIdSoloImagen(Integer id) {
+		Query q = this.entityManager.createQuery(
+				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO(n.id, n.urlImagen) FROM Notificacion n WHERE n.id =: id");
+		q.setParameter("id", id);
+		return (NotificacionImagenDTO) q.getSingleResult();
 	}
 
 	@Override

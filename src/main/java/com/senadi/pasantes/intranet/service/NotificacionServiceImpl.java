@@ -13,6 +13,7 @@ import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO;
 import com.senadi.pasantes.intranet.service.to.LogTO;
 import com.senadi.pasantes.intranet.service.to.NotificacionDTO_TO;
 import com.senadi.pasantes.intranet.service.to.NotificacionTO;
@@ -73,6 +74,11 @@ public class NotificacionServiceImpl implements INotificacionService {
 			lsdto_to.add(this.convertirANotificacionDTO_TO(notificacionDTO));
 		}
 		return lsdto_to;
+	}
+
+	@Override
+	public NotificacionImagenDTO buscarPorIdSoloImagen(Integer id) {
+		return this.iNotificacionRepo.buscarPorIdSoloImagen(id);
 	}
 
 	@Override
@@ -166,7 +172,7 @@ public class NotificacionServiceImpl implements INotificacionService {
 
 			this.iNotificacionRepo.actualizar(img);
 
-			System.out.println("SE ACTUALIZAO");
+			System.out.println("SE ACTUALIZÓ");
 			return 1;
 
 		} catch (Exception e) {
