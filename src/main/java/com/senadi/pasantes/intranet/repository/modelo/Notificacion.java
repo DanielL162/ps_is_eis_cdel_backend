@@ -2,9 +2,6 @@ package com.senadi.pasantes.intranet.repository.modelo;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -20,7 +16,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "notificacion")
 public class Notificacion {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_notificacion")
 	@SequenceGenerator(name = "seq_notificacion", sequenceName = "seq_notificacion", allocationSize = 1)
@@ -41,64 +37,73 @@ public class Notificacion {
 
 	@Column(name = "ntfc_estado")
 	private String estado;
-	
-	//Relaciones
+
+	// Relaciones
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ntfc_id_usuario")
-	@JsonIgnore
 	private Usuario usuario;
-	
-	//Get y set
+
+	// Get y set
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public LocalDateTime getFechaInicio() {
 		return fechaInicio;
 	}
+
 	public void setFechaInicio(LocalDateTime fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+
 	public LocalDateTime getFechaFin() {
 		return fechaFin;
 	}
+
 	public void setFechaFin(LocalDateTime fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+
 	public String getUrlImagen() {
 		return urlImagen;
 	}
+
 	public void setUrlImagen(String urlImagen) {
 		this.urlImagen = urlImagen;
 	}
+
 	public String getImportancia() {
 		return importancia;
 	}
+
 	public void setImportancia(String importancia) {
 		this.importancia = importancia;
 	}
+
 	public String getEstado() {
 		return estado;
 	}
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
 	@Override
 	public String toString() {
-		return "Notificacion [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", importancia=" + importancia + ", estado=" + estado + " ]";
+		return "Notificacion [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", importancia="
+				+ importancia + ", estado=" + estado + " ]";
 	}
-	
 
-	
-	
-	
-	
 }
