@@ -3,7 +3,6 @@ package com.senadi.pasantes.intranet.service.to;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 
 public class DocumentoTO implements Serializable {
@@ -21,7 +20,6 @@ public class DocumentoTO implements Serializable {
 	private String estado; // nombre, categoria, fechaActualizacion, docuemnto, tipo
 
 	// Relaciones
-	@JsonIgnore
 	private Usuario usuario;
 
 	// Get y set
