@@ -44,7 +44,7 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	@Override
 	public DocumentoArchivoDTO buscarPorIdSoloDocumento(Integer id) {
 		Query q = this.entityManager.createQuery(
-				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO(d.documento, d.tipo) FROM Documento d WHERE d.id = :id");
+				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO(d.nombre, d.documento, d.tipo) FROM Documento d WHERE d.id = :id");
 		q.setParameter("id", id);
 		return (DocumentoArchivoDTO) q.getSingleResult();
 	}
