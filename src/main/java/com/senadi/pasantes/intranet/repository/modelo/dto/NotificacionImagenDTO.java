@@ -16,12 +16,14 @@ public class NotificacionImagenDTO {
 
 	private String estado;
 
+	private String nombre;
+
 	public NotificacionImagenDTO() {
 		super();
 	}
 
 	public NotificacionImagenDTO(Integer id, String urlImagen, LocalDateTime fechaInicio, LocalDateTime fechaFin,
-			String importancia, String estado) {
+			String importancia, String estado, String nombre) {
 		super();
 		this.id = id;
 		this.urlImagen = urlImagen;
@@ -29,6 +31,7 @@ public class NotificacionImagenDTO {
 		this.fechaFin = fechaFin;
 		this.importancia = importancia;
 		this.estado = estado;
+		this.nombre = nombre;
 	}
 
 	// Get y set
@@ -78,6 +81,14 @@ public class NotificacionImagenDTO {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }

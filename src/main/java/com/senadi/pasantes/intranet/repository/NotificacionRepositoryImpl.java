@@ -42,7 +42,7 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 	@Override
 	public NotificacionImagenDTO buscarPorIdSoloImagen(Integer id) {
 		Query q = this.entityManager.createQuery(
-				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO(n.id, n.urlImagen, n.fechaInicio, n.fechaFin, n.importancia, n.estado) FROM Notificacion n WHERE n.id =: id");
+				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO(n.id, n.urlImagen, n.fechaInicio, n.fechaFin, n.importancia, n.estado, n.nombre) FROM Notificacion n WHERE n.id =: id");
 		q.setParameter("id", id);
 		return (NotificacionImagenDTO) q.getSingleResult();
 	}

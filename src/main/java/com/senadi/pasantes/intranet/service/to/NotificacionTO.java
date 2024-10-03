@@ -16,6 +16,7 @@ public class NotificacionTO implements Serializable {
 	private String urlImagen;
 	private String importancia;
 	private String estado;
+	private String nombre;
 
 	// Relaciones
 	private Usuario usuario;
@@ -77,12 +78,19 @@ public class NotificacionTO implements Serializable {
 		this.usuario = usuario;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	@Override
 	public String toString() {
-		return "NotificacionTO [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin  + ", importancia=" + importancia + ", estado=" + estado + "]";
+		return "NotificacionTO [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", urlImagen="
+				+ urlImagen + ", importancia=" + importancia + ", estado=" + estado + ", nombre=" + nombre
+				+ ", usuario=" + usuario + "]";
 	}
-	
-	
-	
 
 }
