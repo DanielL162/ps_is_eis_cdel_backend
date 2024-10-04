@@ -19,6 +19,8 @@ public class NotificacionDTO_TO extends RepresentationModel<NotificacionDTO_TO> 
 
 	private String estado;
 	
+	private String nombre;
+	
 	
 	@Override
 	public String toString() {
@@ -67,5 +69,12 @@ public class NotificacionDTO_TO extends RepresentationModel<NotificacionDTO_TO> 
 		this.estado = estado;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
 }

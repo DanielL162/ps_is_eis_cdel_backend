@@ -35,7 +35,7 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 	@Override
 	public List<NotificacionDTO> consultarTodoDTO() {
 		Query q = this.entityManager.createQuery(
-				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO(n.id, n.fechaInicio, n.fechaFin, n.importancia, n.estado) FROM Notificacion n");
+				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO(n.id, n.fechaInicio, n.fechaFin, n.importancia, n.estado, n.nombre) FROM Notificacion n");
 		return q.getResultList();
 	}
 

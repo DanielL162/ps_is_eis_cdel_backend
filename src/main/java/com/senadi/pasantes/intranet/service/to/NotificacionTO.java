@@ -86,11 +86,5 @@ public class NotificacionTO implements Serializable {
 		this.nombre = nombre;
 	}
 
-	@Override
-	public String toString() {
-		return "NotificacionTO [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", urlImagen="
-				+ urlImagen + ", importancia=" + importancia + ", estado=" + estado + ", nombre=" + nombre
-				+ ", usuario=" + usuario + "]";
-	}
 
 }

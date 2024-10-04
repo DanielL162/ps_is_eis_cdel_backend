@@ -13,22 +13,26 @@ public class NotificacionDTO {
 	private String importancia;
 
 	private String estado;
+	
+	private String nombre;
 
 	public NotificacionDTO() {
 		super();
 	}
 
 	public NotificacionDTO(Integer id, LocalDateTime fechaInicio, LocalDateTime fechaFin, String importancia,
-			String estado) {
+			String estado, String nombre) {
 		super();
 		this.id = id;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.importancia = importancia;
 		this.estado = estado;
+		this.nombre = nombre;
 	}
 
 	// Get y set
+	
 	public Integer getId() {
 		return id;
 	}
@@ -67,6 +71,14 @@ public class NotificacionDTO {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	@Override
