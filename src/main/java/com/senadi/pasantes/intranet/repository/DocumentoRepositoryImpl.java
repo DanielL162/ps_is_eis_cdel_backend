@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
@@ -39,6 +40,14 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 		Query q = this.entityManager.createQuery(
 				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO(d.id, d.nombre, d.categoria, d.estado) FROM Documento d");
 		return q.getResultList();
+	}
+
+	@Override
+	public DocumentoArchivoDTO buscarPorIdSoloDocumento(Integer id) {
+		Query q = this.entityManager.createQuery(
+				"SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO(d.nombre, d.documento, d.tipo) FROM Documento d WHERE d.id = :id");
+		q.setParameter("id", id);
+		return (DocumentoArchivoDTO) q.getSingleResult();
 	}
 
 	@Override

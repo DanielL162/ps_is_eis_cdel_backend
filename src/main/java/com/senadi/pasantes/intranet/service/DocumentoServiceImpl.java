@@ -12,6 +12,7 @@ import com.senadi.pasantes.intranet.repository.IDocumentoRepository;
 import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
@@ -96,6 +97,7 @@ public class DocumentoServiceImpl implements IDocumentoService {
 
 	@Override
 	public void insertar(DocumentoTO documentoTO) {
+		System.out.println("docTO" + documentoTO);
 		this.iDocumentoRepo.insertar(this.convertirADocumento(documentoTO));
 
 		// LOGS
@@ -122,6 +124,11 @@ public class DocumentoServiceImpl implements IDocumentoService {
 			lsdto_to.add(this.convertirADocumentoDTO_TO(documentoDTO));
 		}
 		return lsdto_to;
+	}
+
+	@Override
+	public DocumentoArchivoDTO buscarPorIdSoloDocumento(Integer id) {
+		return this.iDocumentoRepo.buscarPorIdSoloDocumento(id);
 	}
 
 	@Override

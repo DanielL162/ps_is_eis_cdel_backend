@@ -16,9 +16,9 @@ public class NotificacionTO implements Serializable {
 	private String urlImagen;
 	private String importancia;
 	private String estado;
+	private String nombre;
 
 	// Relaciones
-	@JsonIgnore
 	private Usuario usuario;
 
 	// Get y set
@@ -78,12 +78,13 @@ public class NotificacionTO implements Serializable {
 		this.usuario = usuario;
 	}
 
-	@Override
-	public String toString() {
-		return "NotificacionTO [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin  + ", importancia=" + importancia + ", estado=" + estado + "]";
+	public String getNombre() {
+		return nombre;
 	}
-	
-	
-	
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO;
 import com.senadi.pasantes.intranet.service.INotificacionService;
 import com.senadi.pasantes.intranet.service.to.NotificacionDTO_TO;
 import com.senadi.pasantes.intranet.service.to.NotificacionTO;
@@ -57,8 +58,20 @@ public class NotificacionControllerRestful {
 			Link link = linkTo(methodOn(NotificacionControllerRestful.class).buscarPorId(notif.getId()))
 					.withRel("enlaces");
 			notif.add(link);
+
+			Link linkUrl = linkTo(methodOn(NotificacionControllerRestful.class).buscarPorIdSoloImagen(notif.getId()))
+					.withRel("imagen");
+			notif.add(linkUrl);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(ls);
+	}
+
+	// BUSCAR POR ID
+	// http://localhost:8086/API/v1.0/Intranet/Notificaciones/url/{id} GET
+	@GetMapping(path = "/url/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<NotificacionImagenDTO> buscarPorIdSoloImagen(@PathVariable Integer id) {
+		var notifDTOImagen = this.iNotificacionService.buscarPorIdSoloImagen(id);
+		return ResponseEntity.status(HttpStatus.OK).body(notifDTOImagen);
 	}
 
 	// INSERTAR

@@ -1,15 +1,12 @@
-package com.senadi.pasantes.intranet.service.to;
+package com.senadi.pasantes.intranet.repository.modelo.dto;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import org.springframework.hateoas.RepresentationModel;
-
-public class NotificacionDTO_TO extends RepresentationModel<NotificacionDTO_TO> implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class NotificacionImagenDTO {
 
 	private Integer id;
+
+	private String urlImagen;
 
 	private LocalDateTime fechaInicio;
 
@@ -18,14 +15,23 @@ public class NotificacionDTO_TO extends RepresentationModel<NotificacionDTO_TO> 
 	private String importancia;
 
 	private String estado;
-	
+
 	private String nombre;
-	
-	
-	@Override
-	public String toString() {
-		return "NotificacionDTO_TO [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin
-				+ ", importancia=" + importancia + ", estado=" + estado + "]";
+
+	public NotificacionImagenDTO() {
+		super();
+	}
+
+	public NotificacionImagenDTO(Integer id, String urlImagen, LocalDateTime fechaInicio, LocalDateTime fechaFin,
+			String importancia, String estado, String nombre) {
+		super();
+		this.id = id;
+		this.urlImagen = urlImagen;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.importancia = importancia;
+		this.estado = estado;
+		this.nombre = nombre;
 	}
 
 	// Get y set
@@ -35,6 +41,14 @@ public class NotificacionDTO_TO extends RepresentationModel<NotificacionDTO_TO> 
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
 	}
 
 	public LocalDateTime getFechaInicio() {

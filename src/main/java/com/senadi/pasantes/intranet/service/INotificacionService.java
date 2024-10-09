@@ -2,6 +2,7 @@ package com.senadi.pasantes.intranet.service;
 
 import java.util.List;
 
+import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO;
 import com.senadi.pasantes.intranet.service.to.NotificacionDTO_TO;
 import com.senadi.pasantes.intranet.service.to.NotificacionTO;
 
@@ -22,5 +23,7 @@ public interface INotificacionService {
 	public Integer cambiarEstado(Integer idImg, Integer idAdmin);
 
 	public List<NotificacionDTO_TO> consultarTodoDTO();
+
+	public NotificacionImagenDTO buscarPorIdSoloImagen(Integer id);
 
 }

@@ -2,6 +2,7 @@ package com.senadi.pasantes.intranet.service;
 
 import java.util.List;
 
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoDTO_TO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.FormatoPlantillaDTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
@@ -17,6 +18,8 @@ public interface IDocumentoService {
 	public DocumentoTO buscarPorId(Integer id);
 
 	public List<DocumentoDTO_TO> consultarTodoDTO();
+
+	public DocumentoArchivoDTO buscarPorIdSoloDocumento(Integer id);
 
 	public Integer actualizar(DocumentoTO documentoTO);
 
