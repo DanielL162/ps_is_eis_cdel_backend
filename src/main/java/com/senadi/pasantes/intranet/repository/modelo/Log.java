@@ -2,38 +2,38 @@ package com.senadi.pasantes.intranet.repository.modelo;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "log")
 public class Log {
-	
+
 	@Id
-	@SequenceGenerator(name = "seq_log", sequenceName = "seq_log", allocationSize = 1 )
+	@SequenceGenerator(name = "seq_log", sequenceName = "seq_log", allocationSize = 1)
 	@GeneratedValue(generator = "seq_log", strategy = GenerationType.SEQUENCE)
 	@Column(name = "log_id")
 	private Integer id;
-	
+
 	@Column(name = "log_accion")
 	private String accion;
-	
+
 	@Column(name = "log_fecha_accion")
 	private LocalDateTime fechaAccion;
-	
-	//Relaciones
+
+	// Relaciones
 	@ManyToOne
 	@JoinColumn(name = "log_user_id")
-	private Usuario usuario ;
+	private Usuario usuario;
 
-	//Get y set
+	// Get y set
 	public Integer getId() {
 		return id;
 	}
@@ -65,5 +65,5 @@ public class Log {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
 }

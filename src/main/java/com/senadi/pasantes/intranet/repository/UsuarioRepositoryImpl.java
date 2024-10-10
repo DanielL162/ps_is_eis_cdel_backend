@@ -1,14 +1,14 @@
 package com.senadi.pasantes.intranet.repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 import com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
@@ -41,28 +41,22 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 
 	@Override
 	public UsuarioLoginDTO seleccionarPorCedulaUsuarioLoginDTO(String cedula) {
-		TypedQuery<UsuarioLoginDTO> myQuery=this.entityManager.createQuery(""
+		TypedQuery<UsuarioLoginDTO> myQuery = this.entityManager.createQuery(""
 				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO(u.id, u.cedula, u.password, u.rol) "
 				+ "from Usuario u where u.cedula=:datoCedula", UsuarioLoginDTO.class);
 		myQuery.setParameter("datoCedula", cedula);
-		
-		
+
 		return myQuery.getSingleResult();
 	}
 
 	@Override
 	public UsuarioLoginDTO seleccionarPorCorreoUsuarioLoginDTO(String email) {
-		TypedQuery<UsuarioLoginDTO> myQuery=this.entityManager.createQuery(""
+		TypedQuery<UsuarioLoginDTO> myQuery = this.entityManager.createQuery(""
 				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO(u.id, u.cedula, u.password, u.rol) "
 				+ "from Usuario u where u.email=:datoEmail", UsuarioLoginDTO.class);
 		myQuery.setParameter("datoEmail", email);
-		
-		
+
 		return myQuery.getSingleResult();
 	}
-	
-	
-	
-	
 
 }
