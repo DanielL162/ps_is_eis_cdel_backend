@@ -109,8 +109,8 @@ public class NotificacionControllerRestful {
 	// BUSCAR POR ID
 	// http://localhost:8086/API/v1.0/Intranet/Notificaciones/activos GET
 	@GetMapping(path = "/activos", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<NotificacionTO>> buscarTodosFecha() {
-		List<NotificacionTO> notificacionesTo = this.iNotificacionService.obtenerNotificaciones();
+	public ResponseEntity<List<NotificacionImagenDTO>> buscarTodosFecha() {
+		var notificacionesTo = this.iNotificacionService.obtenerNotificaciones();
 		return ResponseEntity.status(HttpStatus.OK).body(notificacionesTo);
 	}
 

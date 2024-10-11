@@ -125,19 +125,9 @@ public class NotificacionServiceImpl implements INotificacionService {
 	}
 
 	@Override
-	public List<NotificacionTO> obtenerNotificaciones() {
-
+	public List<NotificacionImagenDTO> obtenerNotificaciones() {
 		LocalDateTime fechaActual = LocalDateTime.now();
-		List<Notificacion> notificaciones = this.iNotificacionRepo.buscarPorfecha(fechaActual);
-
-		List<NotificacionTO> notificacionTOs = new ArrayList<>();
-		for (Notificacion notificacion : notificaciones) {
-			NotificacionTO notificacionTO = this.convertirATO(notificacion);
-			notificacionTOs.add(notificacionTO);
-		}
-
-		return notificacionTOs;
-
+		return this.iNotificacionRepo.buscarPorfecha(fechaActual);
 	}
 
 	@Override

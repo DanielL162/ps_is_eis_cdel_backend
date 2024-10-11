@@ -23,5 +23,5 @@ public interface INotificacionRepository {
 
 	public void eliminar(Integer id);
 
-	List<Notificacion> buscarPorfecha(LocalDateTime fechaActual);
+	List<NotificacionImagenDTO> buscarPorfecha(LocalDateTime fechaActual);
 }
