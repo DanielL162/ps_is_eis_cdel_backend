@@ -3,7 +3,6 @@ package com.senadi.pasantes.intranet.service.to;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 
 public class NotificacionTO implements Serializable {
@@ -86,5 +85,10 @@ public class NotificacionTO implements Serializable {
 		this.nombre = nombre;
 	}
 
+	@Override
+	public String toString() {
+		return "NotificacionTO [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", importancia="
+				+ importancia + ", estado=" + estado + ", nombre=" + nombre + "]";
+	}
 
 }

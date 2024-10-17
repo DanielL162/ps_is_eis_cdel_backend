@@ -89,6 +89,7 @@ public class NotificacionServiceImpl implements INotificacionService {
 		notificacionActualizar.setFechaInicio(notificacionTO.getFechaInicio());
 		notificacionActualizar.setFechaFin(notificacionTO.getFechaFin());
 		notificacionActualizar.setUsuario(notificacionTO.getUsuario());
+		notificacionActualizar.setNombre(notificacionTO.getNombre());
 
 		if (notificacionTO.getUrlImagen() != null) {
 			notificacionActualizar.setUrlImagen(notificacionTO.getUrlImagen());
