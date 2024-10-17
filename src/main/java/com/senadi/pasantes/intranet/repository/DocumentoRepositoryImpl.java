@@ -84,7 +84,7 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	@Override
 	public List<DocumentoNormativaDTO> consultarNormativasDTO() {
 		TypedQuery<DocumentoNormativaDTO> myQuery = this.entityManager.createQuery(""
-				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.documento, d.tipo) "
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.tipo) "
 				+ "from Documento d " + "where d.estado='A' and  d.categoria='normativa'", DocumentoNormativaDTO.class);
 
 		return myQuery.getResultList();
@@ -93,7 +93,7 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	@Override
 	public List<DocumentoInstructivoDTO> consultarInstructivosDTO() {
 		TypedQuery<DocumentoInstructivoDTO> myQuery = this.entityManager.createQuery(""
-				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.documento, d.tipo) "
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.tipo) "
 				+ "from Documento d " + "where d.estado='A' and d.categoria='instructivo'",
 				DocumentoInstructivoDTO.class);
 

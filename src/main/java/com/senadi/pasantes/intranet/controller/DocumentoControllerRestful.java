@@ -84,16 +84,32 @@ public class DocumentoControllerRestful {
 	// http://localhost:8086/API/v1.0/Intranet/Documentos/instructivos GET
 	@GetMapping(path = "/normativas", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoNormativaTO>> buscarNormativasTO() {
-		List<DocumentoNormativaTO> documentoNormativaTOs = this.iDocumentoService.buscarNormativasTO();
-		return ResponseEntity.status(HttpStatus.OK).body(documentoNormativaTOs);
+		var ls = this.iDocumentoService.buscarNormativasTO();
+		for (var docu : ls) {
+			Link link = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorId(docu.getId())).withRel("enlaces");
+			docu.add(link);
+
+			Link linkVer = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorIdSoloDocumento(docu.getId()))
+					.withRel("verSoloDoc");
+			docu.add(linkVer);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(ls);
 	}
 
 	// BUSCAR INSTRUCTIVOS TO
 	// http://localhost:8086/API/v1.0/Intranet/Documentos GET
 	@GetMapping(path = "/instructivos", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoInstructivoTO>> buscarInstructivosTO() {
-		List<DocumentoInstructivoTO> documentoInstructivoTOs = this.iDocumentoService.buscarInstructivosTO();
-		return ResponseEntity.status(HttpStatus.OK).body(documentoInstructivoTOs);
+		var ls = this.iDocumentoService.buscarInstructivosTO();
+		for (var docu : ls) {
+			Link link = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorId(docu.getId())).withRel("enlaces");
+			docu.add(link);
+
+			Link linkVer = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorIdSoloDocumento(docu.getId()))
+					.withRel("verSoloDoc");
+			docu.add(linkVer);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(ls);
 	}
 
 	// BUSCAR POR ID

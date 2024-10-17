@@ -1,32 +1,33 @@
 package com.senadi.pasantes.intranet.service.to;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class DocumentoNormativaTO {
+import org.springframework.hateoas.RepresentationModel;
+
+public class DocumentoNormativaTO extends RepresentationModel<DocumentoNormativaTO> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	private String nombre;
 	private LocalDateTime fechaCreacion;
 	private LocalDateTime fechaActualizacion;
-	private String documento;
 	private String tipo;
 
 	public DocumentoNormativaTO() {
 		super();
 	}
-	
 
 	public DocumentoNormativaTO(Integer id, String nombre, LocalDateTime fechaCreacion,
-			LocalDateTime fechaActualizacion, String documento, String tipo) {
+			LocalDateTime fechaActualizacion, String tipo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.fechaCreacion = fechaCreacion;
 		this.fechaActualizacion = fechaActualizacion;
-		this.documento = documento;
 		this.tipo = tipo;
 	}
-
 
 	public Integer getId() {
 		return id;
@@ -60,14 +61,6 @@ public class DocumentoNormativaTO {
 		this.fechaActualizacion = fechaActualizacion;
 	}
 
-	public String getDocumento() {
-		return documento;
-	}
-
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
-
 	public String getTipo() {
 		return tipo;
 	}
@@ -79,9 +72,7 @@ public class DocumentoNormativaTO {
 	@Override
 	public String toString() {
 		return "DocumentoNormativaDTO [id=" + id + ", nombre=" + nombre + ", fechaCreacion=" + fechaCreacion
-				+ ", fechaActualizacion=" + fechaActualizacion + ", documento=" + documento + ", tipo=" + tipo + "]";
+				+ ", fechaActualizacion=" + fechaActualizacion + ", tipo=" + tipo + "]";
 	}
-
-	
 
 }
