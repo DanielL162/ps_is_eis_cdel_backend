@@ -18,7 +18,7 @@ public interface INotificacionService {
 
 	public void eliminar(Integer id);
 
-	List<NotificacionTO> obtenerNotificaciones();
+	List<NotificacionImagenDTO> obtenerNotificaciones();
 
 	public Integer cambiarEstado(Integer idImg, Integer idAdmin);
 

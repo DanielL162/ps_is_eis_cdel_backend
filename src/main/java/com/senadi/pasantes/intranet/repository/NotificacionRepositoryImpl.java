@@ -3,17 +3,17 @@ package com.senadi.pasantes.intranet.repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Notificacion;
 import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
@@ -71,16 +71,22 @@ public class NotificacionRepositoryImpl implements INotificacionRepository {
 		return myQuery.getResultList();
 	}
 
-	public List<Notificacion> buscarPorfecha(LocalDateTime fechaActual) {
-		String jpql = "SELECT d FROM Notificacion d " + "WHERE :fechaActual BETWEEN d.fechaInicio AND d.fechaFin "
-				+ "AND d.estado = 'A' " + "ORDER BY CASE " + "    WHEN d.importancia = 'alta' THEN 1 "
-				+ "    WHEN d.importancia = 'media' THEN 2 " + "    WHEN d.importancia = 'baja' THEN 3 " + "    ELSE 4 "
-				+ "END";
+	public List<NotificacionImagenDTO> buscarPorfecha(LocalDateTime fechaActual) {
+	    String jpql = "SELECT NEW com.senadi.pasantes.intranet.repository.modelo.dto.NotificacionImagenDTO(n.id, n.urlImagen, n.fechaInicio, n.fechaFin, n.importancia, n.estado, n.nombre) "
+	                 + "FROM Notificacion n "
+	                 + "WHERE :fechaActual BETWEEN n.fechaInicio AND n.fechaFin "
+	                 + "AND n.estado = 'A' "
+	                 + "ORDER BY CASE "
+	                 + "    WHEN n.importancia = 'alta' THEN 1 "
+	                 + "    WHEN n.importancia = 'media' THEN 2 "
+	                 + "    WHEN n.importancia = 'baja' THEN 3 "
+	                 + "    ELSE 4 "
+	                 + "END";
 
-		TypedQuery<Notificacion> myQuery = this.entityManager.createQuery(jpql, Notificacion.class);
-		myQuery.setParameter("fechaActual", fechaActual);
+	    Query myQuery = this.entityManager.createQuery(jpql);
+	    myQuery.setParameter("fechaActual", fechaActual);
 
-		return myQuery.getResultList();
+	    return myQuery.getResultList();
 	}
 
 }

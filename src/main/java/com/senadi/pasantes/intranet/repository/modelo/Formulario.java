@@ -3,20 +3,20 @@ package com.senadi.pasantes.intranet.repository.modelo;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
+//import org.hibernate.annotations.JdbcTypeCode;
+//import org.hibernate.type.SqlTypes;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "formulario")
@@ -40,10 +40,12 @@ public class Formulario {
 	@Column(name = "form_id_destinatario")
 	private Integer idDestinatario;
 
-	@JdbcTypeCode(SqlTypes.JSON)
+
+//	@JdbcTypeCode(SqlTypes.JSON)
 	//el tipo de dato es JSON, realica la conversión adecuada entre el tipo Java (en este caso, String) y el tipo jsonb de PostgreSQL.
 	@Column(name = "form_contenido", columnDefinition = "jsonb")
 	private String contenido;
+
 
 	// Relaciones
 	@ManyToOne()

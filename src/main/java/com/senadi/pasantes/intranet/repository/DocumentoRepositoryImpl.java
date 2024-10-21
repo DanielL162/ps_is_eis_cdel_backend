@@ -2,6 +2,12 @@ package com.senadi.pasantes.intranet.repository;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
 
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
@@ -11,12 +17,6 @@ import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDT
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.FormatoPlantillaDTO;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
@@ -85,7 +85,7 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	@Override
 	public List<DocumentoNormativaDTO> consultarNormativasDTO() {
 		TypedQuery<DocumentoNormativaDTO> myQuery = this.entityManager.createQuery(""
-				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.documento, d.tipo) "
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.tipo) "
 				+ "from Documento d " + "where d.estado='A' and  d.categoria='normativa'", DocumentoNormativaDTO.class);
 
 		return myQuery.getResultList();
@@ -94,7 +94,7 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	@Override
 	public List<DocumentoInstructivoDTO> consultarInstructivosDTO() {
 		TypedQuery<DocumentoInstructivoDTO> myQuery = this.entityManager.createQuery(""
-				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.documento, d.tipo) "
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.tipo) "
 				+ "from Documento d " + "where d.estado='A' and d.categoria='instructivo'",
 				DocumentoInstructivoDTO.class);
 
