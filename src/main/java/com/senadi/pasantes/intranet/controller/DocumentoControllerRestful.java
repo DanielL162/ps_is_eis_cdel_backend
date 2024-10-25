@@ -49,7 +49,7 @@ public class DocumentoControllerRestful {
 	}
 
 	// BUSCAR TODOS
-	// http://localhost:8086/API/v1.0/Intranet/Documentos/normativas GET
+	// http://localhost:8086/API/v1.0/Intranet/Documentos GET
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoListaTO>> buscarTodos() {
 		List<DocumentoListaTO> documentosListaTO = this.iDocumentoService.buscarTodosDocumentoListaTO();
@@ -82,9 +82,10 @@ public class DocumentoControllerRestful {
 	}
 
 	// BUSCAR NORMATIVAS TO
-	// http://localhost:8086/API/v1.0/Intranet/Documentos/instructivos GET
+	// http://localhost:8086/API/v1.0/Intranet/Documentos/normativas GET
 	@GetMapping(path = "/normativas", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoNormativaTO>> buscarNormativasTO() {
+		System.out.println("Entro a buscar NORMATIVAS");
 		var ls = this.iDocumentoService.buscarNormativasTO();
 		for (var docu : ls) {
 			Link link = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorId(docu.getId())).withRel("enlaces");
@@ -101,6 +102,7 @@ public class DocumentoControllerRestful {
 	// http://localhost:8086/API/v1.0/Intranet/Documentos/instructivos GET
 	@GetMapping(path = "/instructivos", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<DocumentoInstructivoTO>> buscarInstructivosTO() {
+		System.out.println("Entro a buscar INSTRUCTIVOS");
 		var ls = this.iDocumentoService.buscarInstructivosTO();
 		for (var docu : ls) {
 			Link link = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorId(docu.getId())).withRel("enlaces");
@@ -112,7 +114,7 @@ public class DocumentoControllerRestful {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(ls);
 	}
-	
+
 	// BUSCAR FORMATOS PLANTILLAS TO
 	// http://localhost:8086/API/v1.0/Intranet/Documentos/formatosPlantillas GET
 	@GetMapping(path = "/formatosPlantillas", produces = MediaType.APPLICATION_JSON_VALUE)
