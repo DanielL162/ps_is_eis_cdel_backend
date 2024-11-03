@@ -47,24 +47,40 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
 
 	@Override
 	public UsuarioLoginDTO seleccionarPorCedulaUsuarioLoginDTO(String cedula) {
+		UsuarioLoginDTO usuarioLoginDTO=null;
+		
+		try {
+			TypedQuery<UsuarioLoginDTO> myQuery = this.entityManager.createQuery(""
+					+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO(u.id, u.cedula, u.password, u.rol) "
+					+ "from Usuario u where u.cedula=:datoCedula", UsuarioLoginDTO.class);
+			myQuery.setParameter("datoCedula", cedula);
+			
+			usuarioLoginDTO=myQuery.getSingleResult();
+			
+		}catch (Exception e) {
+			//e.printStackTrace();
+		}
 
-		TypedQuery<UsuarioLoginDTO> myQuery = this.entityManager.createQuery(""
-				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO(u.id, u.cedula, u.password, u.rol) "
-				+ "from Usuario u where u.cedula=:datoCedula", UsuarioLoginDTO.class);
-		myQuery.setParameter("datoCedula", cedula);
+		
 
-		return myQuery.getSingleResult();
+		return usuarioLoginDTO;
 	}
 
 	@Override
 	public UsuarioLoginDTO seleccionarPorCorreoUsuarioLoginDTO(String email) {
+		UsuarioLoginDTO usuarioLoginDTO=null;
+		
+		try {
 		TypedQuery<UsuarioLoginDTO> myQuery = this.entityManager.createQuery(""
 				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.UsuarioLoginDTO(u.id, u.cedula, u.password, u.rol) "
 				+ "from Usuario u where u.email=:datoEmail", UsuarioLoginDTO.class);
 		myQuery.setParameter("datoEmail", email);
+		usuarioLoginDTO=myQuery.getSingleResult();
+		}catch (Exception e) {
+			//e.printStackTrace();
+		}
 
-
-		return myQuery.getSingleResult();
+		return usuarioLoginDTO;
 	}
 
 }

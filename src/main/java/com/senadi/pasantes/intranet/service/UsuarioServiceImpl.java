@@ -34,10 +34,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	public Integer insertar(UsuarioTO usuarioTO) {
 
 		if (usuarioTO.getCedula() != null
-				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) == null) {
+				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) == null
+				&& this.iUsuarioRepo.seleccionarPorCorreoUsuarioLoginDTO(usuarioTO.getEmail()) == null
+				) {
 
-//			String encodedPassword = encriptacionContrasenia.encriptarContraseña(usuarioTO.getPassword());
-//			usuarioTO.setPassword(encodedPassword);
+			//String encodedPassword = encriptacionContrasenia.encriptarContraseña(usuarioTO.getPassword());
+			//usuarioTO.setPassword(encodedPassword);
 
 			this.iUsuarioRepo.insertar(this.convertirAUsuario(usuarioTO));
 			if (this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) != null) {
@@ -75,7 +77,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			// usuarioLoginTO.getPassword())) {
 
 			// if(encriptacionContrasenia.verificarCoincidencia(usuarioLoginTO.getPassword(),usuarioLoginDTO.getPassword())
-			if (usuarioLoginTO.getPassword().equals(usuarioLoginDTO.getPassword())) {
+			
+			//String encodedPassword = encriptacionContrasenia.encriptarContraseña(usuarioLoginTO.getPassword());
+			if ( usuarioLoginTO.getPassword() .equals(usuarioLoginDTO.getPassword())) {
 				System.out.println("La contraseña coincide");
 				if (usuarioLoginTO.getRol().equals(usuarioLoginDTO.getRol())) {
 					System.out.println("El rol es correcto");
