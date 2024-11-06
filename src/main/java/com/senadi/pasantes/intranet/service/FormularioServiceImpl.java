@@ -35,6 +35,8 @@ public class FormularioServiceImpl implements IFormularioService {
 		 // Convertir el Map en una cadena JSON
         String jsonContenido = objectMapper.writeValueAsString(formularioTO.getContenido());
         
+        System.out.println("Contenido FormularioTO: "+formularioTO.getContenido());
+        
         Formulario formulario= new Formulario();
         formulario.setEmisor(formularioTO.getEmisor());
         formulario.setEstado(formularioTO.getEstado());
@@ -42,6 +44,7 @@ public class FormularioServiceImpl implements IFormularioService {
         formulario.setFechaEmision(formularioTO.getFechaEmision());
         formulario.setIdDestinatario(formularioTO.getIdDestinatario());
         formulario.setContenido(jsonContenido);
+        //formulario.setContenido(formularioTO.getContenido());
         
         this.iFormularioRepo.insertar(formulario);
         
@@ -65,7 +68,7 @@ public class FormularioServiceImpl implements IFormularioService {
 	    formularioTO.setFechaEmision(formulario.getFechaEmision());
 	    formularioTO.setIdDestinatario(formulario.getIdDestinatario());
 	    formularioTO.setContenido(contenidoMap);  // Asignar el contenido convertido
-
+	    //formularioTO.setContenido(formulario.getContenido());
 	    return formularioTO;
 	}
 
@@ -87,6 +90,8 @@ public class FormularioServiceImpl implements IFormularioService {
 		 // Convertir el Map en una cadena JSON
         String jsonContenido = objectMapper.writeValueAsString(formularioTO.getContenido());
         
+        System.out.println("asdfasdfsadfsafsfasfsafsadf: "+formularioTO.getContenido());
+        
         Formulario formulario= new Formulario();
         formulario.setEmisor(formularioTO.getEmisor());
         formulario.setEstado(formularioTO.getEstado());
@@ -94,6 +99,7 @@ public class FormularioServiceImpl implements IFormularioService {
         formulario.setFechaEmision(formularioTO.getFechaEmision());
         formulario.setIdDestinatario(formularioTO.getIdDestinatario());
         formulario.setContenido(jsonContenido);
+        //formulario.setContenido(formularioTO.getContenido());
         
         this.iFormularioRepo.insertar(formulario);
         
@@ -117,7 +123,9 @@ public class FormularioServiceImpl implements IFormularioService {
 	    formularioTO.setFechaEmision(formulario.getFechaEmision());
 	    formularioTO.setIdDestinatario(formulario.getIdDestinatario());
 	    formularioTO.setContenido(contenidoMap);  // Asignar el contenido convertido
+	    //formularioTO.setContenido(formulario.getContenido());
 
+	    
 	    return formularioTO;
 	}
 	

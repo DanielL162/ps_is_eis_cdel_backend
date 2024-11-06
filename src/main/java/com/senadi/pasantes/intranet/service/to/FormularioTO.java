@@ -80,6 +80,14 @@ public class FormularioTO implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	@Override
+	public String toString() {
+		return "FormularioTO [id=" + id + ", fechaEmision=" + fechaEmision + ", fechaTratamiento=" + fechaTratamiento
+				+ ", estado=" + estado + ", idDestinatario=" + idDestinatario + ", contenido=" + contenido + "]";
+	}
+	
+	
 	
 	
 

@@ -17,6 +17,9 @@ public class FormularioRepositoryImpl implements IFormularioRepository {
 
 	@Override
 	public void insertar(Formulario formulario) {
+        System.out.println("Contenido Formulario: "+formulario.getContenido());
+        System.out.println("Contenido Formulario TIpo: "+formulario.getContenido().getClass().getName());
+
 		this.entityManager.persist(formulario);
 	}
 
