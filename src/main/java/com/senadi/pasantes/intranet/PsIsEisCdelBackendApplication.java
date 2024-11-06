@@ -19,7 +19,7 @@ public class PsIsEisCdelBackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Ok");
+		System.out.println("Ok, backend");
 
 //		var notificaciones = iNotificacionService.obtenerNotificaciones();
 //		for (NotificacionImagenDTO notificacion : notificaciones) {
