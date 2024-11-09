@@ -2,6 +2,7 @@ package com.senadi.pasantes.intranet.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.senadi.pasantes.intranet.repository.IUsuarioRepository;
@@ -29,27 +30,32 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
 	private EncriptacionContrasenia encriptacionContrasenia;
+	
+	 @Autowired
+	  private PasswordEncoder passwordEncoder; // Inteccion PasswordEncoder
 
 	@Override
 	public Integer insertar(UsuarioTO usuarioTO) {
+	    if (usuarioTO.getCedula() != null
+	            && this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) == null
+	            && this.iUsuarioRepo.seleccionarPorCorreoUsuarioLoginDTO(usuarioTO.getEmail()) == null) {
 
-		if (usuarioTO.getCedula() != null
-				&& this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) == null
-				&& this.iUsuarioRepo.seleccionarPorCorreoUsuarioLoginDTO(usuarioTO.getEmail()) == null
-				) {
+	        // Hashear la contraseña antes de almacenarla
+	        String hashedPassword = passwordEncoder.encode(usuarioTO.getPassword());
+	        usuarioTO.setPassword(hashedPassword);
 
-			//String encodedPassword = encriptacionContrasenia.encriptarContraseña(usuarioTO.getPassword());
-			//usuarioTO.setPassword(encodedPassword);
+	        // Guardar el usuario con la contraseña hasheada
+	        this.iUsuarioRepo.insertar(this.convertirAUsuario(usuarioTO));
 
-			this.iUsuarioRepo.insertar(this.convertirAUsuario(usuarioTO));
-			if (this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) != null) {
-				return 1;
-			}
-		} else {
-			return -2;
-		}
+	        // Verificar si el usuario se insertó correctamente
+	        if (this.iUsuarioRepo.seleccionarPorCedulaUsuarioLoginDTO(usuarioTO.getCedula()) != null) {
+	            return 1;
+	        }
+	    } else {
+	        return -2;
+	    }
 
-		return 0;
+	    return 0;
 	}
 
 	@Override
@@ -69,49 +75,48 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Override
 	public Integer validarUsuario(UsuarioLoginTO usuarioLoginTO) {
-		try {
-			UsuarioLoginDTO usuarioLoginDTO = this.iUsuarioRepo
-					.seleccionarPorCedulaUsuarioLoginDTO(usuarioLoginTO.getCedula());
+	    try {
+	        UsuarioLoginDTO usuarioLoginDTO = this.iUsuarioRepo
+	                .seleccionarPorCedulaUsuarioLoginDTO(usuarioLoginTO.getCedula());
 
-			// if (SeguridadContrasenia.verificarContrasena(usuarioLoginTO.getPassword(),
-			// usuarioLoginTO.getPassword())) {
+	        // Verificar la contraseña ingresada contra el hash almacenado
+	        if (usuarioLoginDTO != null && passwordEncoder.matches(usuarioLoginTO.getPassword(), usuarioLoginDTO.getPassword())) {
+	            System.out.println("La contraseña coincide");
 
-			// if(encriptacionContrasenia.verificarCoincidencia(usuarioLoginTO.getPassword(),usuarioLoginDTO.getPassword())
-			
-			//String encodedPassword = encriptacionContrasenia.encriptarContraseña(usuarioLoginTO.getPassword());
-			if ( usuarioLoginTO.getPassword() .equals(usuarioLoginDTO.getPassword())) {
-				System.out.println("La contraseña coincide");
-				if (usuarioLoginTO.getRol().equals(usuarioLoginDTO.getRol())) {
-					System.out.println("El rol es correcto");
-					return usuarioLoginDTO.getId();
-				}
-			} else {
-				System.out.println("La contraseña no coincide ");
-			}
+	            if (usuarioLoginTO.getRol().equals(usuarioLoginDTO.getRol())) {
+	                System.out.println("El rol es correcto");
+	                return usuarioLoginDTO.getId();
+	            }
+	        } else {
+	            System.out.println("La contraseña no coincide");
+	        }
 
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+	    } catch (Exception e) {
+	        System.out.println(e.getMessage());
+	    }
 
-		try {
-			UsuarioLoginDTO usuarioLoginDTOEmail = this.iUsuarioRepo
-					.seleccionarPorCorreoUsuarioLoginDTO(usuarioLoginTO.getEmail());
+	    // Segunda verificación por correo, en caso de no encontrar por cédula
+	    try {
+	        UsuarioLoginDTO usuarioLoginDTOEmail = this.iUsuarioRepo
+	                .seleccionarPorCorreoUsuarioLoginDTO(usuarioLoginTO.getEmail());
 
-			// if(encriptacionContrasenia.verificarCoincidencia(usuarioLoginTO.getPassword(),usuarioLoginDTOEmail.getPassword())
-			if (usuarioLoginTO.getPassword().equals(usuarioLoginDTOEmail.getPassword())) {
-				System.out.println("La contraseña coincide");
-				if (usuarioLoginTO.getRol().equals(usuarioLoginDTOEmail.getRol())) {
-					System.out.println("El rol es correcto");
-					return usuarioLoginDTOEmail.getId();
-				}
-			} else {
-				System.out.println("La contraseña no coincide ");
-			}
+	        if (usuarioLoginDTOEmail != null && passwordEncoder.matches(usuarioLoginTO.getPassword(), usuarioLoginDTOEmail.getPassword())) {
+	            System.out.println("La contraseña coincide");
 
-		} catch (Exception e) {
-		}
+	            if (usuarioLoginTO.getRol().equals(usuarioLoginDTOEmail.getRol())) {
+	                System.out.println("El rol es correcto");
+	                return usuarioLoginDTOEmail.getId();
+	            }
+	        } else {
+	            System.out.println("La contraseña no coincide");
+	        }
 
-		return -1;
+	    } catch (Exception e) {
+	        System.out.println(e.getMessage());
+	    }
+
+	    return -1; // Retorno de error si no coincide o si hay alguna excepción
 	}
+
 
 }
