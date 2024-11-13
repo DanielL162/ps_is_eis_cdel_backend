@@ -5,6 +5,7 @@ import java.util.List;
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoFormularioDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
@@ -31,5 +32,7 @@ public interface IDocumentoRepository {
 	public List<DocumentoInstructivoDTO> consultarInstructivosDTO();
 	
 	public  List<FormatoPlantillaDTO> consultarFormatoPlantillaDTO();
+	
+	public List<DocumentoFormularioDTO> consultarFormulariosDTO();
 
 }

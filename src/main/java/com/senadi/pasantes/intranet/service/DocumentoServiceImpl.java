@@ -14,10 +14,12 @@ import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.Usuario;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoFormularioDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoDTO_TO;
+import com.senadi.pasantes.intranet.service.to.DocumentoFormularioTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.FormatoPlantillaDTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
@@ -79,6 +81,16 @@ public class DocumentoServiceImpl implements IDocumentoService {
 	private FormatoPlantillaDTO formatoPlantillaTOToFormatoPlantillaDTO(FormatoPlantillaTO formatoPlantillaTO) {
 	   
 	    return modelMapper.map(formatoPlantillaTO, FormatoPlantillaDTO.class);
+	}
+	
+	private DocumentoFormularioTO documentoFormularioDTOToDocumentoFormularioTO(
+			DocumentoFormularioDTO documentoFormularioDTO) {
+		return modelMapper.map(documentoFormularioDTO, DocumentoFormularioTO.class);
+	}
+
+	private DocumentoFormularioDTO documentoFormularioTOToDocumentoFormularioDTO(
+			DocumentoFormularioTO documentoFormularioTO) {
+		return modelMapper.map(documentoFormularioTO, DocumentoFormularioDTO.class);
 	}
 
 	
@@ -267,6 +279,18 @@ public class DocumentoServiceImpl implements IDocumentoService {
 		}
 		
 		return formatoPlantillaTOs;
+	}
+	
+	@Override
+	public List<DocumentoFormularioTO> buscarFormulariosTO() {
+		List<DocumentoFormularioDTO> documentoFormularioDTOs = this.iDocumentoRepo.consultarFormulariosDTO();
+		List<DocumentoFormularioTO> documentoFormularioTOs = new ArrayList<>();
+
+		for (DocumentoFormularioDTO normDTO : documentoFormularioDTOs) {
+			documentoFormularioTOs.add(this.documentoFormularioDTOToDocumentoFormularioTO(normDTO));
+		}
+
+		return documentoFormularioTOs;
 	}
 
 }

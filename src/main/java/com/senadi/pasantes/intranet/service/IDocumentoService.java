@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoDTO_TO;
+import com.senadi.pasantes.intranet.service.to.DocumentoFormularioTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.FormatoPlantillaDTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
@@ -34,5 +35,7 @@ public interface IDocumentoService {
 	public List<DocumentoInstructivoTO> buscarInstructivosTO();
 	
 	public  List<FormatoPlantillaTO> buscarFormatoPlantillaTO();
+
+	 public List<DocumentoFormularioTO> buscarFormulariosTO();
 
 }

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.service.IDocumentoService;
 import com.senadi.pasantes.intranet.service.to.DocumentoDTO_TO;
+import com.senadi.pasantes.intranet.service.to.DocumentoFormularioTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoInstructivoTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoListaTO;
 import com.senadi.pasantes.intranet.service.to.DocumentoNormativaTO;
@@ -87,6 +88,21 @@ public class DocumentoControllerRestful {
 	public ResponseEntity<List<DocumentoNormativaTO>> buscarNormativasTO() {
 		System.out.println("Entro a buscar NORMATIVAS");
 		var ls = this.iDocumentoService.buscarNormativasTO();
+		for (var docu : ls) {
+			Link link = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorId(docu.getId())).withRel("enlaces");
+			docu.add(link);
+
+			Link linkVer = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorIdSoloDocumento(docu.getId()))
+					.withRel("verSoloDoc");
+			docu.add(linkVer);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(ls);
+	}
+	
+	@GetMapping(path = "/formularios", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<DocumentoFormularioTO>> buscarFormulariosTO() {
+		System.out.println("Entro a buscar FORMULARIOS");
+		var ls = this.iDocumentoService.buscarFormulariosTO();
 		for (var docu : ls) {
 			Link link = linkTo(methodOn(DocumentoControllerRestful.class).buscarPorId(docu.getId())).withRel("enlaces");
 			docu.add(link);

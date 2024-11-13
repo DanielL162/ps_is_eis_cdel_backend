@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.senadi.pasantes.intranet.repository.modelo.Documento;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoArchivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoDTO;
+import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoFormularioDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoInstructivoDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoListaDTO;
 import com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoNormativaDTO;
@@ -113,7 +114,15 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	
 	
 	
-	
+	@Override
+	public List<DocumentoFormularioDTO> consultarFormulariosDTO() {
+		TypedQuery<DocumentoFormularioDTO> myQuery = this.entityManager.createQuery(""
+				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoFormularioDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.tipo) "
+				+ "from Documento d " + "where d.estado='A' and d.categoria='instructivo'",
+				DocumentoFormularioDTO.class);
+
+		return myQuery.getResultList();
+	}
 	
 	
 	
