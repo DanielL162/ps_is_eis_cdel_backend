@@ -118,7 +118,7 @@ public class DocumentoRepositoryImpl implements IDocumentoRepository {
 	public List<DocumentoFormularioDTO> consultarFormulariosDTO() {
 		TypedQuery<DocumentoFormularioDTO> myQuery = this.entityManager.createQuery(""
 				+ "select new com.senadi.pasantes.intranet.repository.modelo.dto.DocumentoFormularioDTO(d.id, d.nombre,d.fechaCreacion,d.fechaActualizacion, d.tipo) "
-				+ "from Documento d " + "where d.estado='A' and d.categoria='instructivo'",
+				+ "from Documento d " + "where d.estado='A' and d.categoria='formulario'",
 				DocumentoFormularioDTO.class);
 
 		return myQuery.getResultList();
